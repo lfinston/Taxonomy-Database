@@ -2,7 +2,7 @@
 #### Created by Laurence D. Finston (LDF) Mon 09 Aug 2021 11:47:34 PM CEST
 
 taxonomy$(EXEEXT): taxonomy.o
-	g++ -o taSxonomy taxonomy.o
+	g++ -o taxonomy taxonomy.o
 
 taxonomy.o: taxonomy.cxx
 	g++ -o taxonomy.o -I/usr/include/mysql -g -c taxonomy.cxx

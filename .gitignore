@@ -24,3 +24,6 @@
 
 *.o
 *~
+taxonomy
+taxonomy.cxx
+taxonomy.o
