@@ -1,3 +1,27 @@
+sudo mysqladmin create Taxonomy
+laurence@laurence-B365M-D3H:~$ sudo mysql
+mysql> use Taxonomy;
+Database changed
+mysql> GRANT ALL ON Taxonomy TO 'laurence'@'localhost';
+mysql> create user 'taxonomy'@'localhost';
+mysql> GRANT ALL ON Taxonomy TO 'taxonomy'@'localhost';
+
+create table Mammalia
+(
+   id int unique not null default -1
+);
+
+show columns from Mammalia;
+
+
+/* * (1) Plants   */
+
+/* ** (2) Leaves  */
+
+https://en.wikipedia.org/wiki/Glossary_of_leaf_morphology#spatulate
+
+/* * (1) Mammals  */
+
 
 https://en.wikipedia.org/wiki/Mammal
 https://en.wikipedia.org/wiki/Clade
