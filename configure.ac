@@ -28,14 +28,11 @@
 
   
 .# Process this file with autoconf to produce a configure script.
-AC_INIT([GNU 3DLDF], [3.0], [Laurence.Finston@gmx.de], [3DLDF])
-AC_CONFIG_SRCDIR([src/main.web])
+AC_INIT([Taxonomy-Database], [1.0], [Laurence.Finston@gmx.de], [Taxonomy-Database])
+#AC_CONFIG_SRCDIR([src/main.web])
 AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_MACRO_DIR([m4])
-LT_INIT
-AC_SUBST([LIBTOOL_DEPS])
-
 
 # Checks for programs.
 AC_PROG_CXX
@@ -44,36 +41,19 @@ AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AC_PROG_YACC
 AM_PROG_LEX
-AC_CHECK_PROG([HAVE_SHA224SUM], [sha224sum], 1, 0) 
-AC_CHECK_PROG([HAVE_SHA1SUM], [sha1sum], 1, 0) 
-AC_CHECK_PROG([HAVE_MD5SUM], [md5sum], 1, 0) 
-AC_CHECK_PROG([HAVE_CKSUM], [cksum], 1, 0) 
 AC_CHECK_PROG([HAVE_GZIP], [gzip], 1, 0) 
-
-AC_DEFINE_UNQUOTED([HAVE_SHA224SUM], $HAVE_SHA224SUM, 
-                   [Define to 1, if `sha224sum' is available, otherwise 0.])
-AC_DEFINE_UNQUOTED([HAVE_SHA1SUM], $HAVE_SHA1SUM, 
-                   [Define to 1, if `sha1sum' is available, otherwise 0.])
-				   
-AC_DEFINE_UNQUOTED([HAVE_MD5SUM], $HAVE_MD5SUM, 
-                   [Define to 1, if `md5sum' is available, otherwise 0.])
-
-AC_DEFINE_UNQUOTED([HAVE_CKSUM], $HAVE_CKSUM, 
-                   [Define to 1, if `cksum' is available, otherwise 0.])
 
 AC_DEFINE_UNQUOTED([HAVE_GZIP], $HAVE_GZIP, d
                    [Define to 1, if `gzip' is available, otherwise 0.])
 
 # Checks for libraries.
 #AC_CHECK_LIB(m, trunc)
-AC_CHECK_LIB(gsl, gsl_matrix_alloc)
 AC_CHECK_LIB(mysqlclient, mysql_init)
 
 # Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS([errno.h float.h limits.h stdlib.h \
-                  unistd.h pthread.h gsl/gsl_complex.h \
-                  gsl/gsl_complex_math.h gsl/gsl_matrix.h mysql.h])
+                  unistd.h pthread.h mysql.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 #AC_C_CONST
@@ -88,7 +68,7 @@ AC_CHECK_TYPES([unsigned long long, unsigned long, unsigned int])
 AC_SEARCH_LIBS(trunc, m)
 AC_CHECK_FUNCS([floor sqrt trunc])
 
-AC_CONFIG_FILES([Makefile src/Makefile doc/Makefile doc/old_doc/Makefile examples/Makefile])
+AC_CONFIG_FILES([Makefile])
 
 # Checks for endianness.
 AC_C_BIGENDIAN
