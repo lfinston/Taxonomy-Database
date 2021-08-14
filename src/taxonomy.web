@@ -52,20 +52,162 @@
 #include <string> 
 #include <vector>
 
+#include <mysql.h>
+
+#if HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+int
+submit_mysql_query(string query_str);
+
 @q * (1) Main@>
 @* Main.
+
 @<Main@>=
 int
 main(int argc, char *argv[])
 {
+@q ** (2) @>
+
+   MYSQL_RES *result = 0;
+   MYSQL_ROW curr_row = 0;
+   MYSQL *mysql;
+     
+   unsigned int row_ctr = 0; 
+   unsigned int field_ctr = 0;
+   long affected_rows = 0;
+
    cerr << "Entering `main'." << endl;
 
+/* ** (2) Initialize  |mysql|  */
+
+   mysql = mysql_init(0);
+
+   if (mysql != 0)
+     {
+       if (DEBUG) 
+	 cerr << "mysql_init succeeded." << endl;
+     }
+   else
+     {
+       cerr << "ERROR!  In `main': `mysql_init failed'." << endl
+	    << "Exiting `songlist' unsuccessfully with exit status 1."
+	    << endl;
+
+       exit(1);
+     }
+
+   unsigned int mysql_timeout = 120;
+  
+   // mysql_options(mysql, MYSQL_OPT_RECONNECT, 0);
+
+   mysql_options(mysql, MYSQL_OPT_CONNECT_TIMEOUT, &mysql_timeout); 
+  
+   if (!mysql_real_connect(mysql, "localhost", "taxonomy", 0, "Taxonomy", 0, NULL, 0))
+   {
+       fprintf(stderr, "Failed to connect to database: Error: %s\n",
+	       mysql_error(mysql));
+   }
+
+@q ** (2) Close connection to database.@>
+
+@ Close connection to database.
+
+@<Main@>=
+
+   mysql_close(mysql);
+   mysql_library_end();
+
+
+@q ** (2) Exit @>
 
    cerr << "Exiting `main' successfully with exit status 0." << endl;
 
    return 0;
 
-}
+}  /* End of |main| definition  */
+
+@q * (1) @>
+
+@* Submit MySQL Query.
+\initials{LDF 2021.08.14.}
+
+@<|submit_mysql_query| definition@>=
+int
+submit_mysql_query(string query_str)
+{
+  int status = 0;
+
+  bool DEBUG = false;  /* |true|  */
+
+  if (DEBUG)
+  { 
+      cerr << "Entering `submit_mysql_query'." << endl;
+  } 
+  
+  mysql_query(mysql, query_str.c_str());
+
+   if (status != 0)
+   {
+        
+     cerr  << "ERROR!  In `submit_mysql_query':"
+           << endl 
+           << "`mysql_query' failed, returning " << status << ":"
+           << endl 
+           << "Error:  " << mysql_error(mysql)
+           << endl 
+           << "Error number:  " << mysql_errno(mysql)
+           << endl 
+           << "Exiting function unsuccessfully with return value 1." 
+           << endl;
+        
+
+     return 1;
+       
+   }  /* |if| (|mysql_query| failed.)  */
+
+   result = mysql_store_result(mysql);        
+
+   if (result == 0)
+   {
+     if (DEBUG)
+       cerr << endl 
+            << "`mysql_store_result' returned 0."
+            << endl
+            << "Exiting function with return value 0." 
+            << endl;
+
+     return 0;
+          
+   }  /* |if| (No result)  */
+   
+   row_ctr   = mysql_num_rows(result);
+   field_ctr = mysql_num_fields(result);
+
+   if (DEBUG)
+   {
+     cerr << "`row_ctr' == " << row_ctr 
+          << endl
+          << "`field_ctr' == " << field_ctr 
+          << endl;
+
+   }  /* |if (DEBUG)|  */
+   
+   affected_rows = (long) mysql_affected_rows(mysql);
+
+   if (DEBUG)
+   {
+     
+     cerr << "`affected_rows' == " << affected_rows
+          << endl
+          << "Exiting function with return value 0."
+          << endl;
+   }
+
+   return 0;
+   
+}  /* |submit_mysql_query| definition */
 
 @q * (1) Putting Taxonomy-Database.@>
 @* Putting Taxonomy-Database together.
@@ -77,6 +219,7 @@ main(int argc, char *argv[])
 @<Include files@>@;
 using namespace std;
 @<Main@>@;
+@<|submit_mysql_query| definition@>@;
 
 
 @q * Emacs-Lisp code for use in indirect buffers when using the          @>
