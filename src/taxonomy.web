@@ -61,11 +61,12 @@ using namespace std;
 #include "config.h"
 #endif
 
-MYSQL *mysql;
-MYSQL_RES *result;
+
 
 int
 submit_mysql_query(string query_str, 
+                   MYSQL *&mysql,
+                   MYSQL_RES *&result,
                    unsigned int &row_ctr,
                    unsigned int &field_ctr,
                    long &affected_rows);
@@ -81,7 +82,9 @@ main(int argc, char *argv[])
 
    bool DEBUG = true;  /* |false|  */
 
+   MYSQL *mysql;
    MYSQL_ROW curr_row = 0;
+   MYSQL_RES *result;
      
    unsigned int row_ctr = 0; 
    unsigned int field_ctr = 0;
@@ -132,6 +135,8 @@ main(int argc, char *argv[])
    sql_strm << "show tables;";
 
    status = submit_mysql_query(sql_strm.str(), 
+                               mysql,
+                               result,
                                row_ctr,
                                field_ctr,
                                affected_rows);
@@ -191,9 +196,7 @@ main(int argc, char *argv[])
 
       else if (DEBUG)
       {
-           cerr << "Error after here." << endl; 
-           cerr << "`curr_row[0]' == " << curr_row[0] << endl;
-           cerr << "Error after here 1." << endl; 
+         cerr << "`curr_row[0]' == " << curr_row[0] << endl;
       }
 
 @q *** (3) @>
@@ -226,6 +229,8 @@ main(int argc, char *argv[])
 @<|submit_mysql_query| definition@>=
 int
 submit_mysql_query(string query_str, 
+                   MYSQL *&mysql,
+                   MYSQL_RES *&result,
                    unsigned int &row_ctr,
                    unsigned int &field_ctr,
                    long &affected_rows)

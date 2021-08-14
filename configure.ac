@@ -29,7 +29,7 @@
   
 .# Process this file with autoconf to produce a configure script.
 AC_INIT([Taxonomy-Database], [1.0], [Laurence.Finston@gmx.de], [Taxonomy-Database])
-#AC_CONFIG_SRCDIR([src/main.web])
+AC_CONFIG_SRCDIR([src/taxonomy.web])
 AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_MACRO_DIR([m4])
@@ -68,7 +68,7 @@ AC_CHECK_TYPES([unsigned long long, unsigned long, unsigned int])
 AC_SEARCH_LIBS(trunc, m)
 AC_CHECK_FUNCS([floor sqrt trunc])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile])
 
 # Checks for endianness.
 AC_C_BIGENDIAN

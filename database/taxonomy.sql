@@ -7,7 +7,7 @@ Database changed
 
 mysql> GRANT ALL ON Taxonomy TO 'laurence'@'localhost';
 mysql> create user 'taxonomy'@'localhost';
-mysql> GRANT ALL ON Taxonomy TO 'taxonomy'@'localhost';
+mysql> GRANT ALL ON Taxonomy.* TO 'taxonomy'@'localhost';
 
 create table Mammalia
 (

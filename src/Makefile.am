@@ -33,15 +33,14 @@ vpath %.c $(SOURCEDIR)
 vpath %.o $(SOURCEDIR)
 
 
-EXTRA_DIST = 
+#EXTRA_DIST = 
 
-.DELETE_ON_ERROR :
-
+#.DELETE_ON_ERROR :
 
 all: taxonomy$(EXEEXT)
 
 taxonomy$(EXEEXT): taxonomy.o
-	g++ -o taxonomy taxonomy.o
+	g++ -o taxonomy$(EXEEXT) taxonomy.o $(LIBS)
 
 taxonomy.o: taxonomy.cxx
 	g++ -o taxonomy.o -I/usr/include/mysql -g -c taxonomy.cxx
@@ -63,6 +62,9 @@ clean:
 
 query:
 	echo "query:"
+	echo "CXXCOMPILE == $(CXXCOMPILE)"
+	echo "CXXLINK == $(CXXLINK)"
+	echo "LIBS == $(LIBS)"
 
 ## Local Variables:
 ## mode:Makefile
