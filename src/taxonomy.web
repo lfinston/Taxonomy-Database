@@ -34,32 +34,41 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <mysql.h>
-#include <algorithm>
 #include <errno.h>
-#include <exception>
 #include <float.h>
 #include <fstream>
+#include <limits.h>
+#include <stdarg.h>
+#include <stdexcept>
+
+#include <mysql.h>
+
+using namespace std;
+
+#include <algorithm>
+#include <exception>
 #include <functional>
 #include <iomanip>
 #include <ios>
 #include <iostream>
 #include <iterator>
-#include <limits.h>
 #include <new>
 #include <sstream>   
-#include <stdarg.h>
-#include <stdexcept>
 #include <string> 
 #include <vector>
-
-#include <mysql.h>
 
 #if HAVE_CONFIG_H
 #include "config.h"
 #endif
 
+MYSQL *mysql;
+MYSQL_RES *result;
+
 int
-submit_mysql_query(string query_str);
+submit_mysql_query(string query_str, 
+                   unsigned int &row_ctr,
+                   unsigned int &field_ctr,
+                   long &affected_rows);
 
 @q * (1) Main@>
 @* Main.
@@ -70,13 +79,19 @@ main(int argc, char *argv[])
 {
 @q ** (2) @>
 
-   MYSQL_RES *result = 0;
+   bool DEBUG = true;  /* |false|  */
+
    MYSQL_ROW curr_row = 0;
-   MYSQL *mysql;
      
    unsigned int row_ctr = 0; 
    unsigned int field_ctr = 0;
    long affected_rows = 0;
+
+   stringstream sql_strm;
+
+   int status = 0;
+
+@q ** (2) @>
 
    cerr << "Entering `main'." << endl;
 
@@ -87,13 +102,13 @@ main(int argc, char *argv[])
    if (mysql != 0)
      {
        if (DEBUG) 
-	 cerr << "mysql_init succeeded." << endl;
+         cerr << "mysql_init succeeded." << endl;
      }
    else
      {
        cerr << "ERROR!  In `main': `mysql_init failed'." << endl
-	    << "Exiting `songlist' unsuccessfully with exit status 1."
-	    << endl;
+            << "Exiting `songlist' unsuccessfully with exit status 1."
+            << endl;
 
        exit(1);
      }
@@ -107,24 +122,99 @@ main(int argc, char *argv[])
    if (!mysql_real_connect(mysql, "localhost", "taxonomy", 0, "Taxonomy", 0, NULL, 0))
    {
        fprintf(stderr, "Failed to connect to database: Error: %s\n",
-	       mysql_error(mysql));
+               mysql_error(mysql));
    }
 
+@q ** (2) @>
+@
+@<Main@>=
+
+   sql_strm << "show tables;";
+
+   status = submit_mysql_query(sql_strm.str(), 
+                               row_ctr,
+                               field_ctr,
+                               affected_rows);
+   if (status != 0)
+   {
+       cerr << "ERROR!  In `main':  `submit_mysql_query' failed, returning " << status << "."
+            << endl 
+            << "Will try to continue."
+            << endl;
+   }
+   else if (DEBUG)
+   {
+       cerr << "In `main':  `submit_mysql_query' succeeded, returning 0."
+            << endl;
+            
+   }
+
+@q ** (2) @>
+@
+@<Main@>=
+
+   for (int i = 0; i < row_ctr; ++i)
+   {
+@q *** (3) @>
+
+      curr_row = mysql_fetch_row(result);
+
+      if (curr_row == 0)
+      {
+        if (DEBUG) 
+           cerr << "`mysql_fetch_row' returned NULL:" 
+                << endl;
+
+        if (*mysql_error(mysql))
+        {
+           cerr << "ERROR!  In `main':  `mysql_fetch_row' failed, returning NULL." 
+                << endl
+                << "Error:  " << mysql_error(mysql) << endl
+                << "Exiting `taxomony' unsuccessfully with exit status 1."
+                << endl;
+
+           /* Close connection to database.  */
+
+           mysql_library_end();
+   
+           exit(1);
+
+        }
+        else if (DEBUG)
+        {
+            cerr << "No more rows." << endl;
+        }
+
+        break;
+
+      }  /* |if (curr_row == 0)|  */
+
+      else if (DEBUG)
+      {
+           cerr << "Error after here." << endl; 
+           cerr << "`curr_row[0]' == " << curr_row[0] << endl;
+           cerr << "Error after here 1." << endl; 
+      }
+
+@q *** (3) @>
+
+   }  /* |for|  */
+   
 @q ** (2) Close connection to database.@>
 
 @ Close connection to database.
 
 @<Main@>=
 
-   mysql_close(mysql);
-   mysql_library_end();
+    mysql_close(mysql);
+    mysql_library_end();
 
 
 @q ** (2) Exit @>
 
-   cerr << "Exiting `main' successfully with exit status 0." << endl;
+    cerr << "Exiting `main' successfully with exit status 0." << endl;
 
-   return 0;
+    return 0;
 
 }  /* End of |main| definition  */
 
@@ -135,11 +225,14 @@ main(int argc, char *argv[])
 
 @<|submit_mysql_query| definition@>=
 int
-submit_mysql_query(string query_str)
+submit_mysql_query(string query_str, 
+                   unsigned int &row_ctr,
+                   unsigned int &field_ctr,
+                   long &affected_rows)
 {
   int status = 0;
 
-  bool DEBUG = false;  /* |true|  */
+  bool DEBUG = true;  /* |false|  */
 
   if (DEBUG)
   { 
@@ -205,6 +298,8 @@ submit_mysql_query(string query_str)
           << endl;
    }
 
+
+
    return 0;
    
 }  /* |submit_mysql_query| definition */
@@ -217,7 +312,6 @@ submit_mysql_query(string query_str)
 
 @c
 @<Include files@>@;
-using namespace std;
 @<Main@>@;
 @<|submit_mysql_query| definition@>@;
 
