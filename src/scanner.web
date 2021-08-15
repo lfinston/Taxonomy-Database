@@ -176,7 +176,6 @@ yyerror(void* v, char const* s)
 @=%{@>
 @<Include files@>@;@/
 using namespace std;
-using namespace gwrdifpk;
 @=%}@>
 @<Start conditions@>@;@/
 @<Options@>@;@/

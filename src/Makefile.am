@@ -53,6 +53,39 @@ taxonomy.cxx: taxonomy.web
 run: taxonomy$(EXEEXT)
 	taxonomy$(EXEEXT)
 
+
+# @cat cpyrtcpp.txt > AAAtmp.txt
+# @echo >> AAAtmp.txt
+# @cat parser.yxx >> AAAtmp.txt
+# @mv AAAtmp.txt parser.yxx
+
+parser.y++: parser.web
+	ctangle $<
+	prbsnflx$(EXEEXT) parser.c parser.yxx
+	rm parser.c
+	check_scan_parse_output.sh parser.yxx parser.y++
+
+parser.cxx parser.hxx: parser.y++ 
+	bison --debug -d -o parser.cxx $<
+
+parser.o: parser.cxx parser.hxx 
+	g++ -c -I/usr/include/mysql -o $@ $<
+
+scanner.o: scanner.cxx scanner.hxx parser.hxx 
+	g++ -c -I/usr/include/mysql -o $@ $<
+
+scanner.cxx scanner.hxx : scanner.l++ 
+	$(LEX) -o scanner.cxx $<
+
+scanner.l++: scanner.web 
+	ctangle scanner.web
+	prbsnflx$(EXEEXT) scanner.c scanner.lxx
+	rm scanner.c
+	check_scan_parse_output.sh scanner.lxx scanner.l++
+
+
+
+
 .PHONY: clean
 
 clean:
@@ -65,6 +98,8 @@ query:
 	echo "CXXCOMPILE == $(CXXCOMPILE)"
 	echo "CXXLINK == $(CXXLINK)"
 	echo "LIBS == $(LIBS)"
+	echo "YACC == $(YACC)"
+	echo "LEX  == $(LEX)"
 
 ## Local Variables:
 ## mode:Makefile
