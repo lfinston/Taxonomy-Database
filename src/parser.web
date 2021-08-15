@@ -1,0 +1,280 @@
+@q parser.web                    @>
+
+@q Created by Laurence D. Finston (LDF) Sun 15 Aug 2021 01:07:26 AM CEST  @>
+
+@q * (1) Copyright and License.@>
+
+@q This file is part of Taxonomy-Database, a package for long-term archiving.  @>
+@q Copyright (C) 2021 Laurence D. Finston @>
+
+@q Taxonomy-Database is free software; you can redistribute it and/or modify @>
+@q it under the terms of the GNU General Public License as published by @>
+@q the Free Software Foundation; either version 3 of the License, or @>
+@q (at your option) any later version.  @>
+
+@q Taxonomy-Database is distributed in the hope that it will be useful, @>
+@q but WITHOUT ANY WARRANTY; without even the implied warranty of @>
+@q MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the @>
+@q GNU General Public License for more details.  @>
+
+@q You should have received a copy of the GNU General Public License          @>
+@q along with Taxonomy-Database; if not, write to the Free Software           @>
+@q Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA @>
+
+@q Taxonomy-Database is available for downloading via Git from @>
+@q https://github.com/gwdg/Taxonomy-Database.git               @>
+
+@q ("@@" stands for a single at-sign in the following paragraph.) @>
+
+@q Please send bug reports to Laurence.Finston@@gmx.de@>
+
+
+@q * (1) Parser.  @>
+@* Parser.
+\initials{LDF 2021.08.15.}
+
+@q ** (2) Include files.@>
+@ Include files.
+
+@<Include files@>=
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdarg.h>
+#include <limits.h>
+#include <ctype.h>
+#include <signal.h>
+
+#include <algorithm>
+#include <bitset>
+#include <fstream>
+#include <iomanip>
+#include <ios>
+#include <iostream>
+#include <iterator>
+#include <time.h>
+#include <math.h>
+#include <sstream>   
+#include <map>
+#include <vector>
+#include <deque>
+#include <stack>
+#include <set>
+
+#include <pthread.h>
+
+
+#if HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+#include <mysql.h>
+
+@q ** (2) Declarations of additional functions.@>
+@ Declarations of additional functions.
+
+@<Declarations of additional functions@>=
+
+int 
+yylex(YYSTYPE* lvalp, yyscan_t parameter);
+
+int
+yywrap(void);
+
+int
+yyerror(void* v, char const* s);
+
+@q ** (2) Options.@>
+@ Options.
+
+@<Options@>=
+@=%verbose@>@;@/
+@=%pure-parser@>@;@/
+@=%parse-param {yyscan_t parameter}@>@;@/
+@=%lex-param {yyscan_t parameter}@>@;@/
+@=%debug@>
+
+@q ** (2) |union| declaration.@>
+@ {\bf union} declaration.
+
+@<|union| declaration@>=
+
+@=%union {@>
+
+  int int_value;
+  unsigned int uint_value;
+  unsigned long int ulint_value;
+  float float_value;
+  char string_value[1024];
+  void *pointer_value;
+
+@=}@>
+
+@q ** (2) Token and type declarations.@>
+@ Token and type declarations.
+
+@q *** (3) Code @>
+
+@<Token and type declarations@>=
+
+
+%token<int_value> END@;@/
+%token<int_value> END_SERVER@;@/
+
+@q ** (2) Rules.  @>
+@ Rules.
+
+@<Rules@>=
+
+@q *** (3) Program.  @>
+@ Program.
+
+@<Rules@>=
+
+@=program: statement_list END@>
+{
+
+#if 0 
+    Scan_Parse_Parameter_Type* param 
+         = static_cast<Scan_Parse_Parameter_Type*>(yyget_extra(parameter));
+
+#if DEBUG_COMPILE 
+    if (param->PARSER_DEBUG)
+    {
+        lock_cerr_mutex(); 
+        cerr << "[Thread " << param->thread_ctr << "]  In `yyparse', rule "
+             << "`program: statement_list END'." 
+             << endl
+             << "Exiting `yyparse' with return value 0."
+             << endl;
+        unlock_cerr_mutex(); 
+
+    }  /* |if (param->PARSER_DEBUG)|  */  
+#endif  /* |DEBUG_COMPILE|  */ 
+#endif 
+  
+    return 0;
+
+};
+
+@q *** (3) statement_list.  @>
+@ \<statement list>.
+\initials{LDF 2012.06.25.}
+
+@q **** (4) statement_list --> EMPTY.  @>
+
+@ \<statement list> $\longrightarrow$ \.{EMPTY}.  
+This rule ensures that an empty file won't cause an error.
+\initials{LDF 2012.06.25.}
+
+@<Rules@>=
+
+@=statement_list: /* Empty  */  @>
+{
+
+#if 0 
+    Scan_Parse_Parameter_Type* param 
+         = static_cast<Scan_Parse_Parameter_Type*>(yyget_extra(parameter));
+#endif 
+
+#if DEBUG_COMPILE 
+    if (param->PARSER_DEBUG)
+    {
+        lock_cerr_mutex(); 
+        cerr << "[Thread " << param->thread_ctr << "]  In `yyparse', rule "
+             << "`statement_list: /* Empty */'." 
+             << endl;
+        unlock_cerr_mutex(); 
+    }  /* |if (param->PARSER_DEBUG)|  */  
+#endif  /* |DEBUG_COMPILE|  */ 
+
+};
+
+@q **** (4) statement_list --> statement_list statement.  @>
+
+@ \<statement list> $\longrightarrow$ \<statement>.
+\initials{LDF 2012.06.25.}
+
+@<Rules@>=
+
+@=statement_list: statement_list statement @>
+{
+
+#if 0
+    Scan_Parse_Parameter_Type* param 
+         = static_cast<Scan_Parse_Parameter_Type*>(yyget_extra(parameter));
+
+#if DEBUG_COMPILE 
+    if (param->PARSER_DEBUG)
+    {
+        lock_cerr_mutex(); 
+        cerr << "[Thread " << param->thread_ctr << "] statement_list: statement_list statement" 
+             << endl;
+        unlock_cerr_mutex(); 
+    }  /* |if (param->PARSER_DEBUG)|  */  
+#endif  /* |DEBUG_COMPILE|  */ 
+#endif 
+
+};
+
+@q *** (3) Statement.  @>
+@ Statement.
+\initials{LDF 2012.06.25.}
+
+@q **** (4) statement --> END_SERVER  @>
+
+@ \<statement> $\longrightarrow$ \.{END\_SERVER}.
+
+@<Rules@>=
+
+@=statement: END_SERVER@>
+{
+@q ***** (5) @>
+
+
+@q ***** (5) @>
+
+};
+
+
+
+@
+@<Garbage@>=
+/* Empty  */
+
+@ Putting parser together.
+@c
+@=%{@>
+@<Include files@>@;@/
+using namespace std;
+static stringstream temp_strm;
+static int status;
+@<Declarations of additional functions@>@;@/
+#if 0 
+@<Garbage@>@;@/
+#endif 
+@=%}@>
+@<Options@>@;@/
+@<|union| declaration@>@;@/
+@<Token and type declarations@>@;@/
+@=%%@>
+@q Rules @>
+@<Rules@>@;@/
+
+@q * (1) Emacs-Lisp code for use in indirect buffers  @>
+
+@q (progn (cweb-mode) (outline-minor-mode) (setq abbrev-mode t)        @>
+
+@q * (1) Local variables for Emacs @>
+
+@q * Local variables for Emacs.@>
+@q Local Variables: @>
+@q mode:CWEB @>
+@q eval:(display-time) @>
+@q abbrev-mode:t @>
+@q eval:(read-abbrev-file) @>
+@q indent-tabs-mode:nil @>
+@q eval:(outline-minor-mode) @>
+@q fill-column:80 @>
+@q End: @>
+
