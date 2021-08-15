@@ -27,6 +27,19 @@
 #### Laurence.Finston@gmx.de
 #### 
 
+
+# ** Variables.
+
+#### Automatic Variables.  For more, see Section 10.5.3, "Automatic Variables"
+#### of the Make info manual.
+#### LDF 2009.12.29.
+
+#### $@:  Target
+#### $<:  First prerequisite
+#### y:  The names of all the prerequisites, with spaces between them.
+#### $*:  The stem with which an implicit rule matches
+
+
 vpath %.web $(SOURCEDIR)
 vpath %.h $(SOURCEDIR)
 vpath %.c $(SOURCEDIR)
@@ -39,8 +52,8 @@ vpath %.o $(SOURCEDIR)
 
 all: taxonomy$(EXEEXT)
 
-taxonomy$(EXEEXT): taxonomy.o
-	g++ -o taxonomy$(EXEEXT) taxonomy.o $(LIBS)
+taxonomy$(EXEEXT): taxonomy.o scanner.o parser.o
+	g++ -o taxonomy$(EXEEXT) $^ $(LIBS)
 
 taxonomy.o: taxonomy.cxx
 	g++ -o taxonomy.o -I/usr/include/mysql -g -c taxonomy.cxx

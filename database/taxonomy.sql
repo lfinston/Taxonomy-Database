@@ -9,12 +9,74 @@ mysql> GRANT ALL ON Taxonomy TO 'laurence'@'localhost';
 mysql> create user 'taxonomy'@'localhost';
 mysql> GRANT ALL ON Taxonomy.* TO 'taxonomy'@'localhost';
 
+https://en.wikipedia.org/wiki/Taxonomic_rank
+
+Phylum, phyla 
+https://en.wikipedia.org/wiki/Phylum
+
+
+
+
+drop table Kingdoms;
+
+create table Kingdoms
+(
+   id int unique not null
+);
+
+
+
+create table Phyla
+(
+   id int unique not null
+);
+
+
+create table Classes
+(
+   id int unique not null
+);
+
+
+
+create table Orders
+(
+   id int unique not null
+);
+
+create table Families
+(
+   id int unique not null
+);
+
+Genus
+
+create table Genera
+(
+   id int unique not null
+);
+
+
+create table Species
+(
+   id int unique not null
+);
+
+
+https://en.wikipedia.org/wiki/Species
+
 create table Mammalia
 (
    id int unique not null default -1
 );
 
+
+
+show tables;
+
 show columns from Mammalia;
+
+
 
 
 /* * (1) Plants   */

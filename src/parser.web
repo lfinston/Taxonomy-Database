@@ -70,6 +70,9 @@
 
 #include <mysql.h>
 
+typedef void* yyscan_t;
+
+#include "parser.hxx"
 #include "scanner.hxx"
 
 @q ** (2) Declarations of additional functions.@>
