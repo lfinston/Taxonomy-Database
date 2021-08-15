@@ -52,14 +52,21 @@ vpath %.o $(SOURCEDIR)
 
 all: taxonomy$(EXEEXT)
 
-taxonomy$(EXEEXT): taxonomy.o scanner.o parser.o
+taxonomy$(EXEEXT): taxonomy.o scanner.o parser.o classes.o
 	g++ -o taxonomy$(EXEEXT) $^ $(LIBS)
 
-taxonomy.o: taxonomy.cxx
+taxonomy.o: taxonomy.cxx classes.hxx parser.hxx scanner.hxx
 	g++ -o taxonomy.o -DHAVE_CONFIG_H=1 -I/usr/include/mysql -g -c taxonomy.cxx
 
 taxonomy.cxx: taxonomy.web
 	ctangle taxonomy.web - taxonomy.cxx
+
+classes.cxx classes.hxx: classes.web
+	ctangle classes.web - classes.cxx
+
+classes.o: classes.cxx
+	g++ -o classes.o -DHAVE_CONFIG_H=1 -I/usr/include/mysql -g -c classes.cxx
+
 
 .PHONY: run
 
@@ -81,7 +88,7 @@ parser.y++: parser.web
 parser.cxx parser.hxx: parser.y++ 
 	bison --debug -d -o parser.cxx $<
 
-parser.o: parser.cxx parser.hxx 
+parser.o: parser.cxx parser.hxx scanner.hxx
 	g++ -c -DHAVE_CONFIG_H=1 -I/usr/include/mysql -o $@ $<
 
 scanner.o: scanner.cxx scanner.hxx parser.hxx 

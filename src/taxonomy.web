@@ -57,12 +57,11 @@ using namespace std;
 #include <string> 
 #include <vector>
 
-#if HAVE_CONFIG_H
-#include "config.h"
-#endif
+#include "../config.h"
 
 typedef void* yyscan_t;  
 
+#include "classes.hxx"
 #include "parser.hxx"
 #include "scanner.hxx"
 

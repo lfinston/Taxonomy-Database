@@ -66,6 +66,7 @@
 #undef NAME_LEN
 #undef LOCAL_HOST
 
+#include "classes.hxx"
 #include "parser.hxx"
 
 @q  ** (2) Start conditions.  @>
@@ -91,7 +92,7 @@
 
 @<Local variables for |yylex|@>=
 
-bool SCANNER_DEBUG = false;  /* |true|  */
+bool DEBUG = true;  /* |false|  */
 
 @q ** (2) Code to be executed each time |yylex| is entered.  @>
 
@@ -105,11 +106,247 @@ to {\bf yylex} can be set here.
    cerr << "Entering `yylex'." << endl;
 
 
+
+
+
+
 @q = Scan_Parse_Parameter_Type* param = static_cast<Scan_Parse_Parameter_Type*>(yyextra); @>
 @q = if (scanner_trace == true) SCANNER_DEBUG = true;                                     @>
 
 @q ** (2) Rules.  @>
 @ Rules.
+
+@q *** (3) Punctuation.  @>
+
+@ Punctuation.
+
+@q **** (4) Asterisk.  @>
+@ Asterisk (\.{\*}).
+
+@<Rules@>=
+@=\* {@>
+
+#if DEBUG_COMPILE
+   if (DEBUG)
+   {
+       cerr << "In `yylex':  " << yytext << " (asterisk)" << endl;
+
+   }  /* |if (DEBUG)|  */
+#endif  /* |DEBUG_COMPILE|  */ 
+
+   return ASTERISK; 
+
+@=}@>
+
+
+@q **** SELECT (4) @> 
+@ SELECT
+@<Rules@>=
+@=select|SELECT {@>
+
+@=}@>
+
+@q **** ALL (4) @> 
+@ ALL
+@<Rules@>=
+@=all|ALL {@>
+
+@=}@>
+
+@q **** FROM (4) @> 
+@ FROM
+@<Rules@>=
+@=from|FROM {@>
+
+@=}@>
+
+@q **** BY (4) @> 
+@ BY
+@<Rules@>=
+@=by|BY {@>
+
+@=}@>
+
+@q **** ASCENDING (4) @> 
+@ ASCENDING
+@<Rules@>=
+@=ascending|ASCENDING {@>
+
+@=}@>
+
+@q **** ASC (ASCENDING) (4) @> 
+@ ASC (ASCENDING)
+@<Rules@>=
+@=asc|ASC {@>
+
+@=}@>
+
+
+@q **** DESCENDING (4) @> 
+@ DESCENDING
+@<Rules@>=
+@=descending|DESCENDING {@>
+
+@=}@>
+
+@q **** DES (DESCENDING) (4) @> 
+@ DES (DESCENDING)
+@<Rules@>=
+@=descending|DESCENDING {@>
+
+@=}@>
+
+@q **** UNIQUE (4) @> 
+@ UNIQUE
+@<Rules@>=
+@=unique|UNIQUE {@>
+
+@=}@>
+
+@q **** LIMIT (4) @> 
+@ LIMIT
+@<Rules@>=
+@=limit|LIMIT {@>
+
+@=}@>
+
+@q **** KINGDOM (4) @> 
+@ KINGDOM
+@<Rules@>=
+@=kingdom|KINGDOM {@>
+
+@=}@>
+
+@q **** KINGDOMS (4) @> 
+@ KINGDOMS
+@<Rules@>=
+@=kingdoms|KINGDOMS {@>
+
+@=}@>
+
+@q **** PHYLUM (4) @> 
+@ PHYLUM
+@<Rules@>=
+@=phylum|PHYLUM {@>
+
+@=}@>
+
+@q **** PHYLA (4) @> 
+@ PHYLA
+@<Rules@>=
+@=phyla|PHYLA {@>
+
+@=}@>
+
+@q **** CLASS (4) @> 
+@ CLASS
+@<Rules@>=
+@=class|CLASS {@>
+
+@=}@>
+
+@q **** CLASSES (4) @> 
+@ CLASSES
+@<Rules@>=
+@=classes|CLASSES {@>
+
+@=}@>
+
+@q **** ORDER (4) @> 
+@ ORDER
+@<Rules@>=
+@=order|ORDER {@>
+
+@=}@>
+
+@q **** ORDERS (4) @> 
+@ ORDERS
+@<Rules@>=
+@=orders|ORDERS {@>
+
+@=}@>
+
+@q **** FAMILY (4) @> 
+@ FAMILY
+@<Rules@>=
+@=family|FAMILY {@>
+
+@=}@>
+
+@q **** FAMILIES (4) @> 
+@ FAMILIES
+@<Rules@>=
+@=families|FAMILIES {@>
+
+@=}@>
+
+@q **** GENUS (4) @> 
+@ GENUS
+@<Rules@>=
+@=genus|GENUS {@>
+
+@=}@>
+
+@q **** GENERA (4) @> 
+@ GENERA
+@<Rules@>=
+@=genera|GENERA {@>
+
+@=}@>
+
+@q **** SPECIES (4) @> 
+@ SPECIES
+@<Rules@>=
+@=species|SPECIES {@>
+
+@=}@>
+
+@q **** SUBSPECIES (4) @> 
+@ SUBSPECIES
+@<Rules@>=
+@=subspecies|SUBSPECIES {@>
+
+@=}@>
+
+@q **** VARIETY (4) @> 
+@ VARIETY
+@<Rules@>=
+@=variety|VARIETY {@>
+
+@=}@>
+
+@q **** VARIETIES (4) @> 
+@ VARIETIES
+@<Rules@>=
+@=varieties|VARIETIES {@>
+
+@=}@>
+
+@q **** ID (4) @> 
+@ ID
+@<Rules@>=
+@=id|ID {@>
+
+@=}@>
+
+
+
+@q **** FLOAT (4) @> 
+@ FLOAT
+@<Rules@>=
+@=float|FLOAT {@>
+
+@=}@>
+
+@q **** STRING (4) @> 
+@ STRING
+@<Rules@>=
+@=string|STRING {@>
+
+@=}@>
+
+
+
 
 @q *** (3) END.  @>
 @ END.
@@ -118,13 +355,12 @@ to {\bf yylex} can be set here.
 @=END|end {@>
 
 #if DEBUG_COMPILE
-   if (SCANNER_DEBUG)
+   if (DEBUG)
    {
        cerr << "In `yylex':  " << yytext << endl;
 
-   }  /* |if (SCANNER_DEBUG)|  */
+   }  /* |if (DEBUG)|  */
 #endif  /* |DEBUG_COMPILE|  */ 
-
 
    return END;
 
@@ -137,16 +373,55 @@ to {\bf yylex} can be set here.
 @=END_SERVER|end_server {@>
 
 #if DEBUG_COMPILE
-   if (SCANNER_DEBUG)
+   if (DEBUG)
    {
        cerr << "In `yylex':  " << yytext << endl;
 
-   }  /* |if (SCANNER_DEBUG)|  */
+   }  /* |if (DEBUG)|  */
 #endif  /* |DEBUG_COMPILE|  */ 
 
    return END_SERVER;
 
 @=}@>
+
+@q *** (3) Comments.  @>
+@ Comments.  
+
+@<Rules@>=
+@=%.*$ {@>
+
+#if DEBUG_COMPILE
+   if (DEBUG)
+   {
+      cerr << "In `yylex':  Comment: " << yytext << endl;
+     
+   }  /* |if (DEBUG)|  */
+
+#endif  /* |DEBUG_COMPILE|  */ 
+
+   /* Ignore  */
+
+@=}@>
+
+
+@q *** (3) Whitespace.  @>
+@ Whitespace.
+
+@<Rules@>=
+@=[[:space:]\x0d]+ {@>
+
+#if DEBUG_COMPILE
+   if (DEBUG)
+   {
+       cerr << "In `yylex':  Whitespace." << endl;
+
+   }  /* |if (DEBUG)|  */
+#endif  /* |DEBUG_COMPILE|  */ 
+
+@=}@>
+
+
+
 
 @q ** (2) Additional functions.  @>
 

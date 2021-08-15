@@ -57,9 +57,7 @@ using namespace std;
 #include <string> 
 #include <vector>
 
-#if HAVE_CONFIG_H
-#include "config.h"
-#endif
+#include "../config.h"
 
 @q * (1) Class declarations.  @>
 @* Class declarations.
@@ -79,10 +77,8 @@ class Kingdom
 @ This is what's compiled.
 
 @c
-@<class declarations@>@;
 @<Include files@>@;
 @<class declarations@>@;@/
-
 
 @q **** (4) This is what's written to the header file `classes.hxx'.  @>
 

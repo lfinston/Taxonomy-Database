@@ -61,8 +61,7 @@
 #include <stack>
 #include <set>
 
-#include <pthread.h>
-
+// #include <pthread.h>
 
 #include "../config.h"
 
@@ -70,6 +69,7 @@
 
 typedef void* yyscan_t;
 
+#include "classes.hxx"
 #include "parser.hxx"
 #include "scanner.hxx"
 
@@ -123,6 +123,36 @@ yyerror(void* v, char const* s);
 
 %token<int_value> END@;@/
 %token<int_value> END_SERVER@;@/
+%token<int_value> ASTERISK@;@/
+%token<int_value> SELECT@;@/
+%token<int_value> ALL@;@/
+%token<int_value> FROM@;@/
+%token<int_value> BY@;@/
+%token<int_value> ASCENDING@;@/
+%token<int_value> DESCENDING@;@/
+%token<int_value> UNIQUE@;@/
+%token<int_value> LIMIT@;@/
+%token<int_value> KINGDOM@;@/
+%token<int_value> KINGDOMS@;@/
+%token<int_value> PHYLUM@;@/
+%token<int_value> PHYLA@;@/
+%token<int_value> CLASS@;@/
+%token<int_value> CLASSES@;@/
+%token<int_value> ORDER@;@/
+%token<int_value> ORDERS@;@/
+%token<int_value> FAMILY@;@/
+%token<int_value> FAMILIES@;@/
+%token<int_value> GENUS@;@/
+%token<int_value> GENERA@;@/
+%token<int_value> SPECIES@;@/
+%token<int_value> SUBSPECIES@;@/
+%token<int_value> VARIETY@;@/
+%token<int_value> VARIETIES@;@/
+%token<int_value> ID@;@/
+
+%token<float_value> FLOAT@;@/
+
+%token<string_value> STRING@;@/
 
 @q ** (2) Rules.  @>
 @ Rules.
