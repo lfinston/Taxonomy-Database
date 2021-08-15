@@ -1,0 +1,213 @@
+@q scanner.web                                                     @>
+@q Created by Laurence D. Finston Sun 15 Aug 2021 12:29:50 PM CEST @>
+
+@q * (1) Copyright and License.@>
+
+@q This file is part of Taxonomy-Database, a package for long-term archiving.  @>
+@q Copyright (C) 2021 Laurence D. Finston @>
+
+@q Taxonomy-Database is free software; you can redistribute it and/or modify @>
+@q it under the terms of the GNU General Public License as published by @>
+@q the Free Software Foundation; either version 3 of the License, or @>
+@q (at your option) any later version.  @>
+
+@q Taxonomy-Database is distributed in the hope that it will be useful, @>
+@q but WITHOUT ANY WARRANTY; without even the implied warranty of @>
+@q MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the @>
+@q GNU General Public License for more details.  @>
+
+@q You should have received a copy of the GNU General Public License          @>
+@q along with Taxonomy-Database; if not, write to the Free Software           @>
+@q Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA @>
+
+@q Taxonomy-Database is available for downloading via Git from @>
+@q https://github.com/gwdg/Taxonomy-Database.git               @>
+
+@q ("@@" stands for a single at-sign in the following paragraph.) @>
+
+@q Please send bug reports to Laurence.Finston@@gmx.de@>
+
+
+@q  * (1) Scanner.  @>
+@* Scanner.
+\initials{LDF 2021.08.15.}
+
+@
+@<Include files@>=
+
+#include <stdlib.h>
+#include <stdio.h>
+
+#include <fstream>
+#include <iomanip>
+#include <ios>
+#include <iostream>
+#include <map>
+#include <string>
+#include <time.h>
+#include <math.h>
+#include <limits.h>
+
+#include <sstream>   
+
+#include <vector>
+#include <deque>
+#include <stack>
+#include <set>
+
+#if 0
+#include <pthread.h>
+#endif 
+
+#if HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <mysql.h>
+
+#undef NAME_LEN
+#undef LOCAL_HOST
+
+#include "parser.hxx"
+
+
+@q  ** (2) Start conditions.  @>
+@ Start conditions.
+
+@<Start conditions@>=
+
+@q  ** (2) Options.  @>
+@ Options.
+
+@<Options@>=
+@=%option header-file="scanner.hxx"@>
+@=%option bison-bridge@>
+@=%option reentrant@>
+
+@q ** (2) Name definitions.  @>
+@ Name definitions.  
+@<Name definitions@>=
+
+
+@q * (1) Local variables for |yylex|.  @>
+@ Local variables for {\bf yylex}.
+\initials{LDF 2012.06.25.}
+
+@<Local variables for |yylex|@>=
+
+bool SCANNER_DEBUG = false;  /* |true|  */
+
+@q ** (2) Code to be executed each time |yylex| is entered.  @>
+
+@ Code to be executed each time {\bf yylex} is entered.  This code must be
+indented or it causes an error when FLEX is run.  The start condition on entry
+to {\bf yylex} can be set here.
+\initials{LDF 2012.06.27.}
+
+@<Execute on entry to |yylex|@>=
+
+
+@q = Scan_Parse_Parameter_Type* param = static_cast<Scan_Parse_Parameter_Type*>(yyextra); @>
+@q = if (scanner_trace == true) SCANNER_DEBUG = true;                                     @>
+
+@q ** (2) Rules.  @>
+@ Rules.
+
+@q *** (3) END.  @>
+@ END.
+
+@<Rules@>=
+@=END|end {@>
+
+#if DEBUG_COMPILE
+   if (SCANNER_DEBUG)
+   {
+       cerr << "In `yylex':  " << yytext << endl;
+
+   }  /* |if (SCANNER_DEBUG)|  */
+#endif  /* |DEBUG_COMPILE|  */ 
+
+
+   return END;
+
+@=}@>
+
+@q *** (3) END_SERVER.  @>
+@ \.{END\_SERVER}.
+
+@<Rules@>=
+@=END_SERVER|end_server {@>
+
+#if DEBUG_COMPILE
+   if (SCANNER_DEBUG)
+   {
+       cerr << "In `yylex':  " << yytext << endl;
+
+   }  /* |if (SCANNER_DEBUG)|  */
+#endif  /* |DEBUG_COMPILE|  */ 
+
+   return END_SERVER;
+
+@=}@>
+
+@q ** (2) Additional functions.  @>
+
+@ Additional functions.
+
+@<|yywrap| definition@>=
+
+int
+yywrap(yyscan_t parameter)
+{
+    return 1;
+}
+
+@
+@<|yyerror| definition@>=
+
+int
+yyerror(void* v, char const* s)
+{
+    return 0;
+}
+
+@ Putting scanner together.
+@c
+@=%{@>
+@<Include files@>@;@/
+using namespace std;
+using namespace gwrdifpk;
+@=%}@>
+@<Start conditions@>@;@/
+@<Options@>@;@/
+@<Name definitions@>@;@/
+@=%%@>
+@=%{@>
+@<Local variables for |yylex|@>@;@/
+@=%}@>
+@<Execute on entry to |yylex|@>@;@/
+@q Rules @>
+@<Rules@>@;@/
+@=%%@>
+@q User code@>
+@<|yywrap| definition@>@;@/
+@<|yyerror| definition@>@;@/
+
+ 
+@q * (1) Emacs-Lisp code for use in indirect buffers  @>
+
+@q (progn (cweb-mode) (outline-minor-mode))           @>
+
+@q * (1) Local variables for Emacs @>
+
+@q * Local variables for Emacs.@>
+@q Local Variables: @>
+@q mode:CWEB @>
+@q eval:(display-time) @>
+@q abbrev-mode:t @>
+@q eval:(read-abbrev-file) @>
+@q indent-tabs-mode:nil @>
+@q eval:(outline-minor-mode) @>
+@q fill-column:80 @>
+@q End: @>
+
