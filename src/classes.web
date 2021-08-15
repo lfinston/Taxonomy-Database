@@ -79,13 +79,15 @@ Scanner_Type
     friend int main(int argc, char *argv[]);
 
     int id;
+  
+    bool end_flag;
 
     public:
 
-       Scanner_Type(void) {id = 0; return;};
-       Scanner_Type(int i) : id(i) {return;};
+       Scanner_Type(void) {id = 0; end_flag = false; return;};
+       Scanner_Type(int i) : id(i) {end_flag = false; return;};
 
-       int clear(void) {id = 0; return 0;};
+       int clear(void) {id = 0; end_flag = false; return 0;};
 
 };
 

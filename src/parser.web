@@ -176,8 +176,12 @@ yyerror(void* v, char const* s);
     }  /* |if (DEBUG)|  */  
 #endif  /* |DEBUG_COMPILE|  */ 
 
+
+    param->end_flag = true;
+
 #if 1 
-    cerr << "param->id == " << param->id << endl;
+    cerr << "param->id       == " << param->id << endl
+         << "param->end_flag == " << param->end_flag << endl;
 #endif 
 
     return 0;

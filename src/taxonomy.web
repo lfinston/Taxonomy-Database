@@ -206,7 +206,6 @@ main(int argc, char *argv[])
 
 @<Main@>=
 
-#if 1 /* 0  */
 
 #if 0 
    int BUFFER_SIZE = 256;
@@ -271,33 +270,62 @@ main(int argc, char *argv[])
  
       fclose(fp);
 
+      if (scanner_node->end_flag)
+      {
+#if DEBUG_COMPILE
+         if (DEBUG)
+         { 
+            cerr << "In `main':  `scanner_node->end_flag' is `true'." << endl
+                 << "Not reading any more input from files."
+                 << endl;
+         }      
+#endif /* |DEBUG_COMPILE|  */@; 
+
+      }  /* |if (scanner_node->end_flag)|  */
+
    }  /* |for|  */
 
 @q *** (3) @> 
 @
 @<Main@>=
 
+   if (!scanner_node->end_flag)
+   {
+
 #if DEBUG_COMPILE
-   if (DEBUG)
-   { 
-       cerr << "Setting `fp' to `stdin' and calling `yyparse' again." << endl;
-   }  
+      if (DEBUG)
+      { 
+          cerr << "Setting `fp' to `stdin' and calling `yyparse' again." << endl;
+      }  
 #endif /* |DEBUG_COMPILE|  */@; 
    
-   fp = stdin;
-    
-   yyrestart(fp, parameter);
+      fp = stdin;
+       
+      yyrestart(fp, parameter);
 
-   status = yyparse(parameter);
+      status = yyparse(parameter);
 
 #if DEBUG_COMPILE
-   if (DEBUG)
-   { 
-       cerr << "`yyparse' returned " << status << "." << endl;
-   }  
+      if (DEBUG)
+      { 
+          cerr << "`yyparse' returned " << status << "." << endl;
+      }  
 #endif /* |DEBUG_COMPILE|  */@; 
 
-#endif 
+   }  /* |if (!scanner_node->end_flag)| */
+
+@q *** (3) @>
+
+#if DEBUG_COMPILE
+   else if (DEBUG)
+   { 
+       cerr << "In `main':  `scanner_node->end_flag' is `true'." << endl
+            << "Not reading from standard input."
+            << endl;
+   }  
+#endif /* |DEBUG_COMPILE|  */@;    
+
+@q *** (3) @>
 
 @ Close connection to database.
 
