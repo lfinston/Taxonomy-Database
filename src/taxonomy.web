@@ -61,7 +61,14 @@ using namespace std;
 #include "config.h"
 #endif
 
+typedef void* yyscan_t;  
 
+#include "parser.hxx"
+#include "scanner.hxx"
+
+
+int
+yyparse(yyscan_t);
 
 int
 submit_mysql_query(string query_str, 
@@ -198,6 +205,13 @@ main(int argc, char *argv[])
       {
          cerr << "`curr_row[0]' == " << curr_row[0] << endl;
       }
+
+
+@q *** (3) @>
+
+      yydebug = 1;
+
+      status = yyparse(0);
 
 @q *** (3) @>
 

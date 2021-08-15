@@ -70,7 +70,6 @@
 
 #include "parser.hxx"
 
-
 @q  ** (2) Start conditions.  @>
 @ Start conditions.
 
@@ -88,7 +87,6 @@
 @ Name definitions.  
 @<Name definitions@>=
 
-
 @q * (1) Local variables for |yylex|.  @>
 @ Local variables for {\bf yylex}.
 \initials{LDF 2012.06.25.}
@@ -105,6 +103,8 @@ to {\bf yylex} can be set here.
 \initials{LDF 2012.06.27.}
 
 @<Execute on entry to |yylex|@>=
+
+   cerr << "Entering `yylex'." << endl;
 
 
 @q = Scan_Parse_Parameter_Type* param = static_cast<Scan_Parse_Parameter_Type*>(yyextra); @>
@@ -159,6 +159,9 @@ to {\bf yylex} can be set here.
 int
 yywrap(yyscan_t parameter)
 {
+
+    cerr << "Entering `yywrap'." << endl;
+
     return 1;
 }
 
@@ -168,6 +171,8 @@ yywrap(yyscan_t parameter)
 int
 yyerror(void* v, char const* s)
 {
+    cerr << "Entering `yyerror'." << endl;
+
     return 0;
 }
 

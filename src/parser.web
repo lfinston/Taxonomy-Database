@@ -226,6 +226,26 @@ This rule ensures that an empty file won't cause an error.
 @ Statement.
 \initials{LDF 2012.06.25.}
 
+@q **** (4) statement --> /* Empty  */  @>
+
+@ \<statement> $\longrightarrow$ \.{EMPTY}.
+
+@<Rules@>=
+
+@=statement: @>
+{
+@q ***** (5) @>
+
+
+@q ***** (5) @>
+
+};
+
+
+@q *** (3) Statement.  @>
+@ Statement.
+\initials{LDF 2012.06.25.}
+
 @q **** (4) statement --> END_SERVER  @>
 
 @ \<statement> $\longrightarrow$ \.{END\_SERVER}.
@@ -240,6 +260,7 @@ This rule ensures that an empty file won't cause an error.
 @q ***** (5) @>
 
 };
+
 
 
 
