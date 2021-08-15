@@ -5,6 +5,10 @@ end_server
 
 select * from kingdoms
 
+query abc def ghi
+
+query jkl
+
 end
 
 

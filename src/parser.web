@@ -118,7 +118,6 @@ yyerror(void* v, char const* s);
 
 @<Token and type declarations@>=
 
-
 %token<int_value> END@;@/
 %token<int_value> END_SERVER@;@/
 %token<int_value> ASTERISK@;@/
@@ -147,6 +146,7 @@ yyerror(void* v, char const* s);
 %token<int_value> VARIETY@;@/
 %token<int_value> VARIETIES@;@/
 %token<int_value> ID@;@/
+%token<int_value> QUERY@;@/
 
 %token<float_value> FLOAT@;@/
 
@@ -276,6 +276,93 @@ yyerror(void* v, char const* s);
 
 };
 
+@q *** (3) @>
+@
+@<Token and type declarations@>=
+%type<string_value> combined_string@;@/
+
+@q *** (3) Statement:  QUERY STRING.  @>
+@ Statement: QUERY STRING.
+\initials{LDF 2012.06.25.}
+
+@q **** (4) statement --> QUERY combined_string  @>
+
+@ \<statement> $\longrightarrow$ \.{QUERY} \<combined_string>.
+
+@<Rules@>=
+
+@=statement: QUERY combined_string@>
+{
+@q ***** (5) @>
+
+#if DEBUG_COMPILE 
+    if (DEBUG)
+    {
+        cerr << "*** Parser:  Rule `statement:  QUERY combined_string'." 
+             << endl 
+             << "combined_string == " << @=$2@> << endl;
+
+    }  /* |if (DEBUG)|  */  
+#endif  /* |DEBUG_COMPILE|  */ 
+
+@q ***** (5) @>
+
+};
+
+@q **** (4) combined_string --> STRING  @>
+
+@ \<combined string> $\longrightarrow$ \.{STRING}.
+
+@<Rules@>=
+
+@=combined_string: STRING@>
+{
+@q ***** (5) @>
+
+#if DEBUG_COMPILE 
+    if (DEBUG)
+    {
+        cerr << "*** Parser:  Rule `statement:  combined_string:  STRING'."  
+             << endl 
+             << "STRING == " << @=$1@> << endl;
+
+    }  /* |if (DEBUG)|  */  
+#endif  /* |DEBUG_COMPILE|  */ 
+
+    memset(@=$$@>, 0,  1024);
+    strcat(@=$$@>, @=$1@>);
+
+@q ***** (5) @>
+
+};
+
+@q **** (4) combined_string --> combined_string STRING  @>
+
+@ \<combined string> $\longrightarrow$ \<combined string> \.{STRING}.
+
+@<Rules@>=
+
+@=combined_string: combined_string STRING@>
+{
+@q ***** (5) @>
+
+#if DEBUG_COMPILE 
+    if (DEBUG)
+    {
+        cerr << "*** Parser:  Rule `combined_string: combined_string STRING'." 
+             << endl 
+             << "combined_string == " << @=$1@> << endl
+             << "STRING          == " << @=$2@> << endl;
+
+    }  /* |if (DEBUG)|  */  
+#endif  /* |DEBUG_COMPILE|  */ 
+
+     strcat(@=$$@>, " ");
+     strcat(@=$$@>, @=$2@>);
+
+@q ***** (5) @>
+
+};
 
 
 @
