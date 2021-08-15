@@ -64,9 +64,7 @@
 #include <pthread.h>
 
 
-#if HAVE_CONFIG_H
-#include "config.h"
-#endif
+#include "../config.h"
 
 #include <mysql.h>
 
@@ -142,62 +140,42 @@ yyerror(void* v, char const* s);
 #if 0 
     Scan_Parse_Parameter_Type* param 
          = static_cast<Scan_Parse_Parameter_Type*>(yyget_extra(parameter));
+#endif 
 
 #if DEBUG_COMPILE 
-    if (param->PARSER_DEBUG)
+    if (DEBUG)
     {
-        lock_cerr_mutex(); 
-        cerr << "[Thread " << param->thread_ctr << "]  In `yyparse', rule "
-             << "`program: statement_list END'." 
-             << endl
-             << "Exiting `yyparse' with return value 0."
+        cerr << "*** Parser:  Rule `statement:  END'." 
              << endl;
-        unlock_cerr_mutex(); 
 
-    }  /* |if (param->PARSER_DEBUG)|  */  
+    }  /* |if (DEBUG)|  */  
 #endif  /* |DEBUG_COMPILE|  */ 
-#endif 
   
     return 0;
-
 };
 
-@q *** (3) statement_list.  @>
+@q *** (3) statement_list:  EMPTY.  @>
 @ \<statement list>.
-\initials{LDF 2012.06.25.}
 
 @q **** (4) statement_list --> EMPTY.  @>
 
-@ \<statement list> $\longrightarrow$ \.{EMPTY}.  
-This rule ensures that an empty file won't cause an error.
-\initials{LDF 2012.06.25.}
-
 @<Rules@>=
 
-@=statement_list: /* Empty  */  @>
+@=statement_list: /* EMPTY  */  @>
 {
-
-#if 0 
-    Scan_Parse_Parameter_Type* param 
-         = static_cast<Scan_Parse_Parameter_Type*>(yyget_extra(parameter));
-#endif 
-
 #if DEBUG_COMPILE 
-    if (param->PARSER_DEBUG)
+    if (DEBUG)
     {
-        lock_cerr_mutex(); 
-        cerr << "[Thread " << param->thread_ctr << "]  In `yyparse', rule "
-             << "`statement_list: /* Empty */'." 
+        cerr << "In `yyparse', rule `statement_list:  EMPTY'." 
              << endl;
-        unlock_cerr_mutex(); 
-    }  /* |if (param->PARSER_DEBUG)|  */  
+    }
 #endif  /* |DEBUG_COMPILE|  */ 
 
 };
 
 @q **** (4) statement_list --> statement_list statement.  @>
 
-@ \<statement list> $\longrightarrow$ \<statement>.
+@ \<statement list> $\longrightarrow$ \<statement list> \<statement>.
 \initials{LDF 2012.06.25.}
 
 @<Rules@>=
@@ -205,42 +183,16 @@ This rule ensures that an empty file won't cause an error.
 @=statement_list: statement_list statement @>
 {
 
-#if 0
-    Scan_Parse_Parameter_Type* param 
-         = static_cast<Scan_Parse_Parameter_Type*>(yyget_extra(parameter));
-
 #if DEBUG_COMPILE 
-    if (param->PARSER_DEBUG)
+    if (DEBUG)
     {
-        lock_cerr_mutex(); 
-        cerr << "[Thread " << param->thread_ctr << "] statement_list: statement_list statement" 
+        cerr << "*** Parser:  Rule `statement_list: statement_list statement'." 
              << endl;
-        unlock_cerr_mutex(); 
-    }  /* |if (param->PARSER_DEBUG)|  */  
+
+    }  /* |if (DEBUG)|  */  
 #endif  /* |DEBUG_COMPILE|  */ 
-#endif 
 
 };
-
-@q *** (3) Statement.  @>
-@ Statement.
-\initials{LDF 2012.06.25.}
-
-@q **** (4) statement --> /* Empty  */  @>
-
-@ \<statement> $\longrightarrow$ \.{EMPTY}.
-
-@<Rules@>=
-
-@=statement: @>
-{
-@q ***** (5) @>
-
-
-@q ***** (5) @>
-
-};
-
 
 @q *** (3) Statement.  @>
 @ Statement.
@@ -256,13 +208,18 @@ This rule ensures that an empty file won't cause an error.
 {
 @q ***** (5) @>
 
+#if DEBUG_COMPILE 
+    if (DEBUG)
+    {
+        cerr << "*** Parser:  Rule `statement:  END_SERVER'." 
+             << endl;
+
+    }  /* |if (DEBUG)|  */  
+#endif  /* |DEBUG_COMPILE|  */ 
 
 @q ***** (5) @>
 
 };
-
-
-
 
 @
 @<Garbage@>=
@@ -273,6 +230,7 @@ This rule ensures that an empty file won't cause an error.
 @=%{@>
 @<Include files@>@;@/
 using namespace std;
+bool DEBUG = true;  /* |false|  */
 static stringstream temp_strm;
 static int status;
 @<Declarations of additional functions@>@;@/

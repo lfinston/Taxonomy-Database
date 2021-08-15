@@ -249,7 +249,11 @@ main(int argc, char *argv[])
 
    FILE *fp = 0;
 
-   yydebug = 1;
+   fp = fopen("test_input.txt", "r");
+      
+   yyrestart(fp, parameter);
+
+   yydebug = 0; /* 1 */
 
    status = yyparse(parameter);
 

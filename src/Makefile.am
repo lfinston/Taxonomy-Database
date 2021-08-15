@@ -56,7 +56,7 @@ taxonomy$(EXEEXT): taxonomy.o scanner.o parser.o
 	g++ -o taxonomy$(EXEEXT) $^ $(LIBS)
 
 taxonomy.o: taxonomy.cxx
-	g++ -o taxonomy.o -I/usr/include/mysql -g -c taxonomy.cxx
+	g++ -o taxonomy.o -DHAVE_CONFIG_H=1 -I/usr/include/mysql -g -c taxonomy.cxx
 
 taxonomy.cxx: taxonomy.web
 	ctangle taxonomy.web - taxonomy.cxx
@@ -82,10 +82,10 @@ parser.cxx parser.hxx: parser.y++
 	bison --debug -d -o parser.cxx $<
 
 parser.o: parser.cxx parser.hxx 
-	g++ -c -I/usr/include/mysql -o $@ $<
+	g++ -c -DHAVE_CONFIG_H=1 -I/usr/include/mysql -o $@ $<
 
 scanner.o: scanner.cxx scanner.hxx parser.hxx 
-	g++ -c -I/usr/include/mysql -o $@ $<
+	g++ -c -DHAVE_CONFIG_H=1 -I/usr/include/mysql -o $@ $<
 
 scanner.cxx scanner.hxx : scanner.l++ 
 	$(LEX) -o scanner.cxx $<
