@@ -61,8 +61,6 @@
 #include <stack>
 #include <set>
 
-// #include <pthread.h>
-
 #include "../config.h"
 
 #include <mysql.h>
@@ -250,6 +248,35 @@ yyerror(void* v, char const* s);
 @q ***** (5) @>
 
 };
+
+@q *** (3) Statement:  SELECT ASTERISK FROM KINGDOMS.  @>
+@ Statement.
+\initials{LDF 2012.06.25.}
+
+@q **** (4) statement --> SELECT ASTERISK FROM KINGDOMS  @>
+
+@ \<statement> $\longrightarrow$ \.{SELECT} \.{ASTERISK} \.{FROM} \.{KINGDOMS}.
+
+@<Rules@>=
+
+@=statement: SELECT ASTERISK FROM KINGDOMS@>
+{
+@q ***** (5) @>
+
+#if DEBUG_COMPILE 
+    if (DEBUG)
+    {
+        cerr << "*** Parser:  Rule `statement:  SELECT ASTERISK FROM KINGDOMS'." 
+             << endl;
+
+    }  /* |if (DEBUG)|  */  
+#endif  /* |DEBUG_COMPILE|  */ 
+
+@q ***** (5) @>
+
+};
+
+
 
 @
 @<Garbage@>=

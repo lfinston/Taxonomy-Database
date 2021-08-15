@@ -144,12 +144,16 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=select|SELECT {@>
 
+   return SELECT;
+
 @=}@>
 
 @q **** ALL (4) @> 
 @ ALL
 @<Rules@>=
 @=all|ALL {@>
+
+   return ALL;
 
 @=}@>
 
@@ -158,12 +162,16 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=from|FROM {@>
 
+   return FROM;
+
 @=}@>
 
 @q **** BY (4) @> 
 @ BY
 @<Rules@>=
 @=by|BY {@>
+
+   return BY;
 
 @=}@>
 
@@ -172,12 +180,16 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=ascending|ASCENDING {@>
 
+   return ASCENDING;
+
 @=}@>
 
 @q **** ASC (ASCENDING) (4) @> 
 @ ASC (ASCENDING)
 @<Rules@>=
 @=asc|ASC {@>
+
+   return ASCENDING;   
 
 @=}@>
 
@@ -187,12 +199,16 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=descending|DESCENDING {@>
 
+   return DESCENDING;
+
 @=}@>
 
 @q **** DES (DESCENDING) (4) @> 
 @ DES (DESCENDING)
 @<Rules@>=
 @=descending|DESCENDING {@>
+
+   return DESCENDING;
 
 @=}@>
 
@@ -201,12 +217,16 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=unique|UNIQUE {@>
 
+   return UNIQUE;
+
 @=}@>
 
 @q **** LIMIT (4) @> 
 @ LIMIT
 @<Rules@>=
 @=limit|LIMIT {@>
+
+   return LIMIT;
 
 @=}@>
 
@@ -215,12 +235,16 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=kingdom|KINGDOM {@>
 
+   return KINGDOM;
+
 @=}@>
 
 @q **** KINGDOMS (4) @> 
 @ KINGDOMS
 @<Rules@>=
 @=kingdoms|KINGDOMS {@>
+
+   return KINGDOMS;
 
 @=}@>
 
@@ -229,12 +253,16 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=phylum|PHYLUM {@>
 
+   return PHYLUM;
+
 @=}@>
 
 @q **** PHYLA (4) @> 
 @ PHYLA
 @<Rules@>=
 @=phyla|PHYLA {@>
+
+   return PHYLA;
 
 @=}@>
 
@@ -243,12 +271,16 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=class|CLASS {@>
 
+   return CLASS;
+
 @=}@>
 
 @q **** CLASSES (4) @> 
 @ CLASSES
 @<Rules@>=
 @=classes|CLASSES {@>
+
+   return CLASSES;
 
 @=}@>
 
@@ -257,12 +289,16 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=order|ORDER {@>
 
+   return ORDER;
+
 @=}@>
 
 @q **** ORDERS (4) @> 
 @ ORDERS
 @<Rules@>=
 @=orders|ORDERS {@>
+
+   return ORDERS;
 
 @=}@>
 
@@ -271,12 +307,16 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=family|FAMILY {@>
 
+   return FAMILY;
+
 @=}@>
 
 @q **** FAMILIES (4) @> 
 @ FAMILIES
 @<Rules@>=
 @=families|FAMILIES {@>
+
+   return FAMILIES;
 
 @=}@>
 
@@ -285,12 +325,16 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=genus|GENUS {@>
 
+   return GENUS;
+
 @=}@>
 
 @q **** GENERA (4) @> 
 @ GENERA
 @<Rules@>=
 @=genera|GENERA {@>
+
+   return GENERA;
 
 @=}@>
 
@@ -299,12 +343,16 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=species|SPECIES {@>
 
+   return SPECIES;
+
 @=}@>
 
 @q **** SUBSPECIES (4) @> 
 @ SUBSPECIES
 @<Rules@>=
 @=subspecies|SUBSPECIES {@>
+
+   return SUBSPECIES;
 
 @=}@>
 
@@ -313,12 +361,16 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=variety|VARIETY {@>
 
+   return VARIETY;
+
 @=}@>
 
 @q **** VARIETIES (4) @> 
 @ VARIETIES
 @<Rules@>=
 @=varieties|VARIETIES {@>
+
+   return VARIETIES;
 
 @=}@>
 
@@ -327,21 +379,7 @@ to {\bf yylex} can be set here.
 @<Rules@>=
 @=id|ID {@>
 
-@=}@>
-
-
-
-@q **** FLOAT (4) @> 
-@ FLOAT
-@<Rules@>=
-@=float|FLOAT {@>
-
-@=}@>
-
-@q **** STRING (4) @> 
-@ STRING
-@<Rules@>=
-@=string|STRING {@>
+   return ID;
 
 @=}@>
 
