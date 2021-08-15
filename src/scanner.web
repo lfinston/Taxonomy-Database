@@ -415,11 +415,11 @@ to {\bf yylex} can be set here.
 
 @=}@>
 
-@q *** (3) END_SERVER.  @>
-@ \.{END\_SERVER}.
+@q *** (3) ENDINPUT.  @>
+@ \.{ENDINPUT}.
 
 @<Rules@>=
-@=END_SERVER|end_server {@>
+@=ENDINPUT|endinput {@>
 
 #if DEBUG_COMPILE
    if (DEBUG)
@@ -429,7 +429,7 @@ to {\bf yylex} can be set here.
    }  /* |if (DEBUG)|  */
 #endif  /* |DEBUG_COMPILE|  */ 
 
-   return END_SERVER;
+   return ENDINPUT;
 
 @=}@>
 

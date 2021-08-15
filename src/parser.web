@@ -119,7 +119,7 @@ yyerror(void* v, char const* s);
 @<Token and type declarations@>=
 
 %token<int_value> END@;@/
-%token<int_value> END_SERVER@;@/
+%token<int_value> ENDINPUT@;@/
 %token<int_value> ASTERISK@;@/
 %token<int_value> SELECT@;@/
 %token<int_value> ALL@;@/
@@ -209,7 +209,6 @@ yyerror(void* v, char const* s);
 @q **** (4) statement_list --> statement_list statement.  @>
 
 @ \<statement list> $\longrightarrow$ \<statement list> \<statement>.
-\initials{LDF 2012.06.25.}
 
 @<Rules@>=
 
@@ -229,34 +228,6 @@ yyerror(void* v, char const* s);
 
 @q *** (3) Statement.  @>
 @ Statement.
-\initials{LDF 2012.06.25.}
-
-@q **** (4) statement --> END_SERVER  @>
-
-@ \<statement> $\longrightarrow$ \.{END\_SERVER}.
-
-@<Rules@>=
-
-@=statement: END_SERVER@>
-{
-@q ***** (5) @>
-
-#if DEBUG_COMPILE 
-    if (DEBUG)
-    {
-        cerr << "*** Parser:  Rule `statement:  END_SERVER'." 
-             << endl;
-
-    }  /* |if (DEBUG)|  */  
-#endif  /* |DEBUG_COMPILE|  */ 
-
-@q ***** (5) @>
-
-};
-
-@q *** (3) Statement:  SELECT ASTERISK FROM KINGDOMS.  @>
-@ Statement.
-\initials{LDF 2012.06.25.}
 
 @q **** (4) statement --> SELECT ASTERISK FROM KINGDOMS  @>
 
@@ -281,6 +252,34 @@ yyerror(void* v, char const* s);
 
 };
 
+@q *** (3) Statement:  ENDINPUT.  @>
+@ Statement.
+
+@q **** (4) statement --> ENDINPUT  @>
+
+@ \<statement> $\longrightarrow$ \.{ENDINPUT}. 
+
+@<Rules@>=
+
+@=statement: ENDINPUT@>
+{
+@q ***** (5) @>
+
+#if DEBUG_COMPILE 
+    if (DEBUG)
+    {
+        cerr << "*** Parser:  Rule `statement:  ENDINPUT'." 
+             << endl;
+
+    }  /* |if (DEBUG)|  */  
+#endif  /* |DEBUG_COMPILE|  */ 
+
+@q ***** (5) @>
+   
+    return 0;
+
+};
+
 @q *** (3) @>
 @
 @<Token and type declarations@>=
@@ -288,7 +287,6 @@ yyerror(void* v, char const* s);
 
 @q *** (3) Statement:  QUERY STRING.  @>
 @ Statement: QUERY STRING.
-\initials{LDF 2012.06.25.}
 
 @q **** (4) statement --> QUERY combined_string  @>
 
