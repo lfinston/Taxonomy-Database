@@ -80,6 +80,13 @@ Scanner_Type
 
     int id;
 
+    public:
+
+       Scanner_Type(void) {id = 0; return;};
+       Scanner_Type(int i) : id(i) {return;};
+
+       int clear(void) {id = 0; return 0;};
+
 };
 
 typedef Scanner_Type *Scanner_Node;

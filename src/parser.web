@@ -167,10 +167,6 @@ yyerror(void* v, char const* s);
 
     Scanner_Node param = static_cast<Scanner_Node>(yyget_extra(parameter));
 
-#if 0 
-    cerr << "param->id == " << param->id << endl;
-#endif 
-
 #if DEBUG_COMPILE 
     if (DEBUG)
     {
@@ -179,7 +175,11 @@ yyerror(void* v, char const* s);
 
     }  /* |if (DEBUG)|  */  
 #endif  /* |DEBUG_COMPILE|  */ 
-  
+
+#if 1 
+    cerr << "param->id == " << param->id << endl;
+#endif 
+
     return 0;
 };
 

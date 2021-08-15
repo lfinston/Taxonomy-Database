@@ -92,6 +92,8 @@ main(int argc, char *argv[])
 
    bool DEBUG = true;  /* |false|  */
 
+   vector<string> in_filename_vector;
+
    MYSQL *mysql;
 
    int status = 0;
@@ -133,6 +135,39 @@ main(int argc, char *argv[])
                mysql_error(mysql));
    }
 
+@q ** (2) Read filenames from invocation.  @>
+
+@ Read filenames from invocation.
+\initials{LDF 2021.08.15.}
+
+@<Main@>=
+
+   for (int i = 1; i < argc; ++i)
+   {
+       in_filename_vector.push_back(string(argv[i]));
+   }
+
+#if DEBUG_COMPILE
+   if (DEBUG)
+   { 
+      if (in_filename_vector.size() == 0)
+      {
+          cerr << "in_filename_vector is empty." << endl;
+      }
+      else 
+          cerr << "in_filename_vector.size() == " << in_filename_vector.size() << endl;
+
+      for (vector<string>::iterator iter = in_filename_vector.begin();
+           iter != in_filename_vector.end();
+           iter++)
+      {
+          cerr << "Filename:  " << *iter << endl;
+      }
+
+   }  
+#endif /* |DEBUG_COMPILE|  */@; 
+
+
 @q ** (2) @>
 @
 @<Main@>=
@@ -173,14 +208,16 @@ main(int argc, char *argv[])
 
 #if 1 /* 0  */
 
+#if 0 
    int BUFFER_SIZE = 256;
 
    char buffer[BUFFER_SIZE];
    memset(buffer, 0, BUFFER_SIZE);
 
    char *buffer_ptr = 0;
+#endif 
 
-   Scanner_Node scanner_node = new Scanner_Type;
+   Scanner_Node scanner_node = new Scanner_Type(1);
 
    yyscan_t parameter;
 
@@ -194,23 +231,51 @@ main(int argc, char *argv[])
 
    FILE *fp = 0;
 
-   fp = fopen("test_input.txt", "r");
-      
-   yyrestart(fp, parameter);
-
    yydebug = 0; /* 1 */
 
-   status = yyparse(parameter);
+   for (vector<string>::iterator iter = in_filename_vector.begin();
+        iter != in_filename_vector.end();
+        ++iter)
+   {
+      errno = 0;
+      fp = fopen("test_input.txt", "r");
+
+      if (fp == 0)
+      {
+         cerr << "ERROR!  In `main':  `fopen' failed, returning NULL." << endl
+              << "Failed to open file `" << *iter << "' for reading." << endl 
+              << "`errno' == " << errno << " == " << strerror(errno) << endl
+              << "Will try to continue."
+              << endl;
+
+         continue;
+      }
+#if DEBUG_COMPILE
+      else if (DEBUG)
+      { 
+         cerr << "In `main':  `fopen' succeeded, returning non-NULL." << endl
+              << "Opened file `" << *iter << "' for reading successfully." << endl; 
+      }  
+#endif /* |DEBUG_COMPILE|  */@; 
+
+      yyrestart(fp, parameter);
+
+      status = yyparse(parameter);
 
 #if DEBUG_COMPILE
-   if (DEBUG)
-   { 
-       cerr << "`yyparse' returned " << status << "." << endl;
-   }  
+      if (DEBUG)
+      { 
+          cerr << "`yyparse' returned " << status << "." << endl;
+      }  
 #endif /* |DEBUG_COMPILE|  */@; 
  
-   fclose(fp);
- 
+      fclose(fp);
+
+   }  /* |for|  */
+
+@q *** (3) @> 
+@
+@<Main@>=
 
 #if DEBUG_COMPILE
    if (DEBUG)
