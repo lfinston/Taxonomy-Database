@@ -1,0 +1,17 @@
+@q **** FLOAT (4) @> 
+@q @ FLOAT @>
+@q @<Rules@>= @>
+@q @=float|FLOAT {@> @>
+
+@q    return FLOAT; @>
+
+@q @=}@> @>
+
+@q **** STRING (4) @> 
+@q @ STRING @>
+@<Rules@>=
+@q @=string|STRING {@> @>
+
+@q    return STRING; @>
+
+@q @=}@> @>
