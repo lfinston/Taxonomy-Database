@@ -21,10 +21,20 @@ drop table Kingdoms;
 
 create table Kingdoms
 (
-   id int unique not null
+   id int unique not null,
+   name varchar(64) not null
 );
 
+alter table Kingdoms add column name varchar(64) not null after id;
 
+show columns from Kingdoms;
+
+insert into Kingdoms (id, name) values
+(1, "Animalia"),
+(2, "Plantae"),
+(3, "Fungi");
+
+select * from Kingdoms order by id;
 
 create table Phyla
 (

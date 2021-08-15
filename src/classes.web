@@ -66,7 +66,29 @@ using namespace std;
 @<class declarations@>=
 class Kingdom
 {
+
+   friend int main(int, char *[]);
+   friend int get_data_from_database(MYSQL *&mysql);
+
    int id;
+   string name;
+
+public:   
+
+   Kingdom(void) : id(0), name("") {return;}
+   int clear(void) {id = 0; name = ""; return 0;}
+   void show(string s = "") 
+   {
+      if (s.length() == 0)
+         s = "Kingdom:";
+
+      cerr << s << endl 
+           << "id:    " << id << endl 
+           << "name:  " << name << endl;
+           
+      return;
+   }
+ 
 
 };
 

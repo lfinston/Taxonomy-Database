@@ -67,6 +67,8 @@ typedef void* yyscan_t;
 
 int parameter_val = 0;
 
+vector<Kingdom> kingdom_vector;
+
 int
 yyparse(yyscan_t);
 
@@ -77,6 +79,9 @@ submit_mysql_query(string query_str,
                    unsigned int &row_ctr,
                    unsigned int &field_ctr,
                    long &affected_rows);
+
+int
+get_data_from_database(MYSQL *&mysql);
 
 @q * (1) Main@>
 @* Main.
@@ -90,14 +95,6 @@ main(int argc, char *argv[])
    bool DEBUG = true;  /* |false|  */
 
    MYSQL *mysql;
-   MYSQL_ROW curr_row = 0;
-   MYSQL_RES *result;
-     
-   unsigned int row_ctr = 0; 
-   unsigned int field_ctr = 0;
-   long affected_rows = 0;
-
-   stringstream sql_strm;
 
    int status = 0;
 
@@ -120,12 +117,15 @@ main(int argc, char *argv[])
             << "Exiting `songlist' unsuccessfully with exit status 1."
             << endl;
 
+       mysql_library_end();
+   
        exit(1);
+
      }
 
    unsigned int mysql_timeout = 120;
   
-   // mysql_options(mysql, MYSQL_OPT_RECONNECT, 0);
+   // mysql_opytions(mysql, MYSQL_OPT_RECONNECT, 0);
 
    mysql_options(mysql, MYSQL_OPT_CONNECT_TIMEOUT, &mysql_timeout); 
   
@@ -139,86 +139,48 @@ main(int argc, char *argv[])
 @
 @<Main@>=
 
-   sql_strm << "show tables;";
-
-   status = submit_mysql_query(sql_strm.str(), 
-                               mysql,
-                               result,
-                               row_ctr,
-                               field_ctr,
-                               affected_rows);
+   status = get_data_from_database(mysql);
+  
    if (status != 0)
    {
-       cerr << "ERROR!  In `main':  `submit_mysql_query' failed, returning " << status << "."
-            << endl 
-            << "Will try to continue."
-            << endl;
+      cerr << "ERROR!  In `main':  `get_data_from_database' failed, returning " << status << "."
+           << endl 
+           << "Failed to retrieve data from database." << endl 
+           << "Exiting `taxonomy' unsuccessfully with exit status 1."
+           << endl;
+ 
+      mysql_library_end();
+   
+      exit(1);
    }
+#if DEBUG_COMPILE
    else if (DEBUG)
-   {
-       cerr << "In `main':  `submit_mysql_query' succeeded, returning 0."
-            << endl;
-            
-   }
+   { 
+      cerr << "In `main':  `get_data_from_database' succeeded, returning 0."
+           << endl 
+           << "Retrieved data from database successfully." << endl;
+   }  
+#endif /* |DEBUG_COMPILE|  */@; 
+
+
+   cerr << "XXX Enter <RETURN> to continue: ";
+   getchar(); 
 
 @q ** (2) @>
 @
 @<Main@>=
 
-   for (int i = 0; i < row_ctr; ++i)
-   {
-@q *** (3) @>
-
-      curr_row = mysql_fetch_row(result);
-
-      if (curr_row == 0)
-      {
-        if (DEBUG) 
-           cerr << "`mysql_fetch_row' returned NULL:" 
-                << endl;
-
-        if (*mysql_error(mysql))
-        {
-           cerr << "ERROR!  In `main':  `mysql_fetch_row' failed, returning NULL." 
-                << endl
-                << "Error:  " << mysql_error(mysql) << endl
-                << "Exiting `taxomony' unsuccessfully with exit status 1."
-                << endl;
-
-           /* Close connection to database.  */
-
-           mysql_library_end();
-   
-           exit(1);
-
-        }
-        else if (DEBUG)
-        {
-            cerr << "No more rows." << endl;
-        }
-
-        break;
-
-      }  /* |if (curr_row == 0)|  */
-
-      else if (DEBUG)
-      {
-         cerr << "`curr_row[0]' == " << curr_row[0] << endl;
-      }
 
 
-@q *** (3) @>
 
-@q *** (3) @>
 
-   }  /* |for|  */
-   
-@q ** (2) Close connection to database.@>
+@q ** (2) Parse input.  @>
 
-@q ** (2) @>
-@
+@ Parse input.  
+
 @<Main@>=
 
+#if 0 /* 1  */
 
    int fd;
 
@@ -246,15 +208,20 @@ main(int argc, char *argv[])
 
    string temp_filename;
 
+#if 0 
    FILE *fp = 0;
 
    fp = fopen("test_input.txt", "r");
       
    yyrestart(fp, parameter);
+#endif 
+
 
    yydebug = 0; /* 1 */
 
    status = yyparse(parameter);
+
+#endif 
 
 @ Close connection to database.
 
@@ -262,7 +229,6 @@ main(int argc, char *argv[])
 
     mysql_close(mysql);
     mysql_library_end();
-
 
 @q ** (2) Exit @>
 
@@ -360,6 +326,164 @@ submit_mysql_query(string query_str,
    
 }  /* |submit_mysql_query| definition */
 
+@q * (1) |get_data_from_database|.  @>
+
+@ |get_data_from_database|.
+\initials{LDF 2021.08.15.}
+
+@<|get_data_from_database| definition@>=
+int
+get_data_from_database(MYSQL *&mysql)
+{
+@q ** (2) @>
+
+   int status = 0;
+
+   bool DEBUG = true; /* |false| */ 
+
+   MYSQL_RES *result;
+   MYSQL_ROW curr_row = 0;
+   unsigned int row_ctr;
+   unsigned int field_ctr;
+   long affected_rows;
+
+   Kingdom curr_kingdom;
+
+#if DEBUG_COMPILE
+   if (DEBUG)
+   { 
+      cerr << "Entering `get_data_from_database'." << endl;
+   }  
+#endif /* |DEBUG_COMPILE|  */@; 
+
+@q ** (2) @>
+
+   stringstream sql_strm;
+
+   sql_strm << "select id, name from Kingdoms order by id;";
+
+   status = submit_mysql_query(sql_strm.str(), 
+                               mysql,
+                               result,
+                               row_ctr,
+                               field_ctr,
+                               affected_rows);
+
+
+   if (status != 0)
+   {
+       cerr << "ERROR!  In `get_data_from_database':  `submit_mysql_query' failed, returning " << status << "."
+            << endl 
+            << "Will try to continue."
+            << endl;
+   }
+   else if (DEBUG)
+   {
+       cerr << "In `get_data_from_database':  `submit_mysql_query' succeeded, returning 0."
+            << endl;
+            
+   }
+
+   sql_strm.str("");
+
+@q ** (2) @>
+@
+@<|get_data_from_database| definition@>=
+
+   for (int i = 0; i < row_ctr; ++i)
+   {
+@q *** (3) @>
+
+      curr_row = mysql_fetch_row(result);
+
+      if (curr_row == 0)
+      {
+        if (DEBUG) 
+           cerr << "`mysql_fetch_row' returned NULL:" 
+                << endl;
+
+        if (*mysql_error(mysql))
+        {
+           cerr << "ERROR!  In `get_data_from_database':  `mysql_fetch_row' failed, returning NULL." 
+                << endl
+                << "Error:  " << mysql_error(mysql) << endl
+                << "Exiting `taxomony' unsuccessfully with exit status 1."
+                << endl;
+
+           /* Close connection to database.  */
+
+           mysql_library_end();
+   
+           exit(1);
+
+        }
+        else if (DEBUG)
+        {
+            cerr << "No more rows." << endl;
+        }
+
+        break;
+
+      }  /* |if (curr_row == 0)|  */
+
+      else if (DEBUG)
+      {
+         cerr << "`curr_row[0]' == " << curr_row[0] << endl
+              << "`curr_row[1]' == " << curr_row[1] << endl;
+      }
+
+      curr_kingdom.clear();
+      curr_kingdom.id = atoi(curr_row[0]);
+      curr_kingdom.name = curr_row[1];
+
+      kingdom_vector.push_back(curr_kingdom);
+
+@q *** (3) @>
+
+   }  /* |for|  */
+
+#if DEBUG_COMPILE
+   if (DEBUG)
+   { 
+       cerr << "kingdom_vector.size() == " << kingdom_vector.size() << endl;
+
+       for (vector<Kingdom>::iterator iter = kingdom_vector.begin();
+            iter != kingdom_vector.end();
+            ++iter)
+       {
+           iter->show();
+       }
+
+   }  
+#endif /* |DEBUG_COMPILE|  */@; 
+  
+
+@q ** (2) @>
+
+   if (result)
+   {
+        mysql_free_result(result);
+	result = 0;
+   }
+
+
+
+
+@q ** (2) @>
+
+#if DEBUG_COMPILE
+   if (DEBUG)
+   { 
+      cerr << "Exiting `get_data_from_database' successfully with return value 0." << endl;
+   }  
+#endif /* |DEBUG_COMPILE|  */@; 
+
+
+   return 0; 
+ 
+}  /* End of |get_data_from_database| definition.  */
+
+
 @q * (1) Putting Taxonomy-Database.@>
 @* Putting Taxonomy-Database together.
 
@@ -370,7 +494,7 @@ submit_mysql_query(string query_str,
 @<Include files@>@;
 @<Main@>@;
 @<|submit_mysql_query| definition@>@;
-
+@<|get_data_from_database| definition@>@;
 
 @q * Emacs-Lisp code for use in indirect buffers when using the          @>
 @q   GNU Emacs editor.  The local variable list is not evaluated when an @>
