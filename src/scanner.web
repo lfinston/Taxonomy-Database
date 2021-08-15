@@ -66,8 +66,8 @@
 #undef NAME_LEN
 #undef LOCAL_HOST
 
-#include "classes.hxx"
 #include "parser.hxx"
+#include "classes.hxx"
 
 @q  ** (2) Start conditions.  @>
 @ Start conditions.

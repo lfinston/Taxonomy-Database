@@ -59,9 +59,32 @@ using namespace std;
 
 #include "../config.h"
 
+typedef void* yyscan_t;  
+
+#include "parser.hxx"
+#include "scanner.hxx"
+
 @q * (1) Class declarations.  @>
 @* Class declarations.
 \initials{LDF 2021.08.15.}
+
+@*1 |class Scanner_Type|.
+@
+@<class declarations@>=
+class
+Scanner_Type
+{
+    friend int yyparse(yyscan_t);
+    friend int yylex(YYSTYPE* lvalp, yyscan_t parameter);
+    friend int main(int argc, char *argv[]);
+
+    int id;
+
+};
+
+typedef Scanner_Type *Scanner_Node;
+
+@*1 |class kingdom|.
 
 @<class declarations@>=
 class Kingdom

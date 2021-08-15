@@ -67,9 +67,9 @@
 
 typedef void* yyscan_t;
 
-#include "classes.hxx"
 #include "parser.hxx"
 #include "scanner.hxx"
+#include "classes.hxx"
 
 @q ** (2) Declarations of additional functions.@>
 @ Declarations of additional functions.
@@ -165,9 +165,10 @@ yyerror(void* v, char const* s);
 @=program: statement_list END@>
 {
 
+    Scanner_Node param = static_cast<Scanner_Node>(yyget_extra(parameter));
+
 #if 0 
-    Scan_Parse_Parameter_Type* param 
-         = static_cast<Scan_Parse_Parameter_Type*>(yyget_extra(parameter));
+    cerr << "param->id == " << param->id << endl;
 #endif 
 
 #if DEBUG_COMPILE 

@@ -52,6 +52,10 @@ vpath %.o $(SOURCEDIR)
 
 all: taxonomy$(EXEEXT)
 
+.PHONY: prog
+
+prog: taxonomy$(EXEEXT)
+
 taxonomy$(EXEEXT): taxonomy.o scanner.o parser.o classes.o
 	g++ -o taxonomy$(EXEEXT) $^ $(LIBS)
 
