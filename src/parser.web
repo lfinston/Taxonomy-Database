@@ -70,6 +70,8 @@
 
 #include <mysql.h>
 
+#include "scanner.hxx"
+
 @q ** (2) Declarations of additional functions.@>
 @ Declarations of additional functions.
 
@@ -89,7 +91,7 @@ yyerror(void* v, char const* s);
 
 @<Options@>=
 @=%verbose@>@;@/
-@=%pure-parser@>@;@/
+@=%define api.pure@>@;@/
 @=%parse-param {yyscan_t parameter}@>@;@/
 @=%lex-param {yyscan_t parameter}@>@;@/
 @=%debug@>
