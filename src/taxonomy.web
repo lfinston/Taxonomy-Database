@@ -66,6 +66,7 @@ typedef void* yyscan_t;
 #include "parser.hxx"
 #include "scanner.hxx"
 
+int parameter_val = 0;
 
 int
 yyparse(yyscan_t);
@@ -209,15 +210,48 @@ main(int argc, char *argv[])
 
 @q *** (3) @>
 
-      yydebug = 1;
-
-      status = yyparse(0);
-
 @q *** (3) @>
 
    }  /* |for|  */
    
 @q ** (2) Close connection to database.@>
+
+@q ** (2) @>
+@
+@<Main@>=
+
+
+   int fd;
+
+   ofstream out_strm;
+   ifstream in_strm;
+
+   int BUFFER_SIZE = 256;
+
+   char buffer[BUFFER_SIZE];
+   memset(buffer, 0, BUFFER_SIZE);
+
+   char *buffer_ptr = 0;
+
+   yyscan_t parameter;
+
+   // parameter = &parameter_val;
+
+   yylex_init(&parameter);      
+
+   yyset_extra(&parameter_val, parameter);
+
+   YY_BUFFER_STATE yy_buffer_state;
+
+   char out_strm_filename[] = "/tmp/gwirdsif.XXXXXX";
+
+   string temp_filename;
+
+   FILE *fp = 0;
+
+   yydebug = 1;
+
+   status = yyparse(parameter);
 
 @ Close connection to database.
 
