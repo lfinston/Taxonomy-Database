@@ -71,20 +71,17 @@ process_command_line_options(int argc, char* argv[]);
 int
 process_command_line_options(int argc, char* argv[])
 {
+@q *** (3) @>
 
    bool DEBUG = true;  /* |false|  */
 
    int status = 0;
 
    string output_filename;
-   string log_filename;
-   string err_log_filename;
 
    ofstream output_file_strm;
 
-   long int trace_value = 0;   
-
-/*  **** (4)  */
+@q  **** (4)  @>
 
    int option_ctr;
    int digit_optind = 0;
@@ -92,30 +89,22 @@ process_command_line_options(int argc, char* argv[])
    size_t pos;
    char *temp_str = 0;
 
-/*  *** (3) Index constants. */
+@q  *** (3) Index constants. @>
 
   const unsigned short HELP_INDEX                           =  0;
   const unsigned short VERSION_INDEX                        =  1;
   const unsigned short OUTPUT_FILENAME_INDEX                =  2;
-  const unsigned short LOG_FILENAME_INDEX                   =  3;
-  const unsigned short TRACE_INDEX                          =  4;
-  const unsigned short TOC_LEAD_SHEETS_INDEX                =  5;
-  const unsigned short TOC_SCORES_INDEX                     =  6;
-  const unsigned short TOC_GUITAR_SOLO_ARRANGEMENTS_INDEX   =  7;
+  const unsigned short TRACE_INDEX                          =  3;
 							       
-/*  **** (4)  */
+@q  **** (4)  @>
 
-/*  *** (3) Option struct. */
+@q  *** (3) Option struct. @>
 
   static struct option long_options[] = {
     {"help", 0, 0, 0},
     {"version", 0, 0, 0},
     {"output-filename",  1, 0, 0},
-    {"log-filename", 1, 0, 0},
     {"trace", 2, 0, 0},
-    {"toc-lead-sheets", 2, 0, 0},
-    {"toc-scores", 2, 0, 0},
-    {"toc-guitar-solo-arrangements", 2, 0, 0},
     {0, 0, 0, 0}
   };
 
@@ -123,12 +112,12 @@ process_command_line_options(int argc, char* argv[])
 
   int this_option_optind = optind ? optind : 1;
 
-/*  *** (3) Loop for handling options. */
+@q  *** (3) Loop for handling options. @>
 
   while (1) 
   {
 
-/*  **** (4)  */
+@q  **** (4)  @>
 
     option_ctr = getopt_long_only (argc,  
                                    argv, "",
@@ -151,7 +140,7 @@ process_command_line_options(int argc, char* argv[])
     }  /* |if (DEBUG)|  */
 
 
-/*  **** (4)  */
+@q  **** (4)  @>
 
     if (option_ctr == -1)
       {
@@ -166,12 +155,12 @@ process_command_line_options(int argc, char* argv[])
         break;
       }
 
-/*  **** (4) Option.   */
+@q  **** (4) Option.   @>
 
     else if (option_ctr == 0)
     {
 
-/*  ***** (5)  */
+@q  ***** (5)  @>
 
 
       if (DEBUG)
@@ -187,12 +176,12 @@ process_command_line_options(int argc, char* argv[])
           cerr << endl;
 
         }
-/*  ***** (5) help.   */
+@q  ***** (5) help.   @>
 
         if (option_index == HELP_INDEX)        
         {
 
-/*  ****** (6)  */
+@q  ****** (6)  @>
 
             if (DEBUG) 
             {
@@ -205,21 +194,21 @@ process_command_line_options(int argc, char* argv[])
 
             /* !! TODO: LDF 2012.01.10.  Add explanatory text.  */
 
-/*  ****** (6)  */
+@q  ****** (6)  @>
 
-            cout << "Usage:  songlist [OPTION] ..." 
+            cout << "Usage:  taxonomy [OPTION] ..." 
                  << endl;
             exit(0);
 
         } /* |else if (option_index == HELP_INDEX)|  */
 
 
-/*  ***** (5) version.   */
+@q  ***** (5) version.   @>
 
         else if (option_index == VERSION_INDEX)        
         {
 
-/*  ****** (6)  */
+@q  ****** (6)  @>
 
 
             if (DEBUG) 
@@ -231,25 +220,23 @@ process_command_line_options(int argc, char* argv[])
 
             }
 
-
-
-            cout << "songlist 1.0"
+            cout << "Taxonomy-Database 1.0"
                     << endl
                     << "Author:  Laurence D. Finston"
                     << endl 
-                    << "Copyright (C) 2018 Laurence D. Finston"
+                    << "Copyright (C) 2021 Laurence D. Finston"
                     << endl;
 
             exit(0);
 
         }  /* |else if (option_index == VERSION_INDEX)|  */
 
-/*  ***** (5) output-filename. */
+@q  ***** (5) output-filename. @>
 
         else if (option_index == OUTPUT_FILENAME_INDEX)
         {
 
-/*  ****** (6)  */
+@q  ****** (6)  @>
 
 
             if (DEBUG) 
@@ -270,43 +257,17 @@ process_command_line_options(int argc, char* argv[])
             output_file_strm.open(output_filename.c_str());
 
 
-/*  ****** (6)  */
+@q  ****** (6)  @>
 
         } /* |else if (option_index == OUTPUT_FILENAME_INDEX)|  */
 
 
-/*  ***** (5) log-filename.   */
-
-        else if (option_index == LOG_FILENAME_INDEX)
-        {
-
-/*  ****** (6)  */
-
-
-            if (DEBUG) 
-            {
-
-               cerr << "`option_index' "
-                    << "== `LOG_FILENAME_INDEX'." 
-                    << endl;
-
-
-            } /* |if (DEBUG)|  */
-
-
-            log_filename = optarg;
-
-/*  ****** (6)  */
-
-        } /* |else if (option_index == LOG_FILENAME_INDEX)|  */
-
-
-/*  ***** (5) trace.   */
+@q  ***** (5) trace.   @>
 
         else if (option_index == TRACE_INDEX)        
         {
 
-/*  ****** (6)  */
+@q  ****** (6)  @>
 
 
             if (DEBUG) 
@@ -347,12 +308,10 @@ process_command_line_options(int argc, char* argv[])
 
             }  /* |if|  */
 
-
             if (optarg && !invalid_arg)
             {
                 errno = 0;
                 trace_value = strtol(optarg, 0, 10);
-
 
             }
 
@@ -384,7 +343,6 @@ process_command_line_options(int argc, char* argv[])
             if (!optarg)
                 trace_value = 1;
 
-
             if (DEBUG)
             {
 
@@ -396,7 +354,7 @@ process_command_line_options(int argc, char* argv[])
                
         }  /* |else if (option_index == TRACE_INDEX)|  */
 
-/*  ***** (5) Invalid option_index value. */
+@q  ***** (5) Invalid option_index value. @>
 
         else 
         {
@@ -409,12 +367,12 @@ process_command_line_options(int argc, char* argv[])
                << endl;
         }
 
-/*  ***** (5)  */
+@q  ***** (5)  @>
 
       }  /* |else if (option_ctr == 0)|  */
 
 
-/*  **** (4) Ambiguous option. */
+@q  **** (4) Ambiguous option. @>
 
     else if (option_ctr == '?')
     {
@@ -429,7 +387,7 @@ process_command_line_options(int argc, char* argv[])
 
     }  /* |else if (option_ctr == '?')|  */
 
-/*  **** (4) Invalid option. */
+@q  **** (4) Invalid option. @>
 
     else
     {
@@ -442,7 +400,7 @@ process_command_line_options(int argc, char* argv[])
 
     }
 
-/*  **** (4) End of while loop. */
+@q  **** (4) End of while loop. @>
 
     if (DEBUG) 
     {
@@ -451,17 +409,17 @@ process_command_line_options(int argc, char* argv[])
 
     }
 
-/*  **** (4)  */
+@q  **** (4)  @>
 
     } /* |while|  */
   
-/*  *** (3) Non-option command line arguments.   */
+@q  *** (3) Non-option command line arguments.   @>
         
-/*  **** (4)  */
+@q  **** (4)  @>
 
   if (optind < argc)
   {
-/*  ***** (5)  */
+@q  ***** (5)  @>
 
        if (DEBUG)
        {
@@ -471,12 +429,13 @@ process_command_line_options(int argc, char* argv[])
 
        int j = optind;
 
-/*  ***** (5)  */
+@q  ***** (5)  @>
 
        for (int i = 0; j < argc;  ++i, ++j)
        {
-/*  ****** (6)  */
+@q  ****** (6)  @>
 
+          
 
            if (DEBUG)
            {
@@ -485,13 +444,13 @@ process_command_line_options(int argc, char* argv[])
 
            }  /* |if (DEBUG)|  */ 
 
+           in_filename_vector.push_back(argv[j]);
 
-/*  ****** (6) First non-option argument.   */
-
+@q  ****** (6) First non-option argument.   @>
 
            if (i == 0)  
            {
-/*  ******* (7)  */
+@q  ******* (7)  @>
 
                if (false)
                {
@@ -502,7 +461,7 @@ process_command_line_options(int argc, char* argv[])
                         << endl;
 
                }
-/*  ******* (7)  */
+@q  ******* (7)  @>
 
                else if (false)
                {
@@ -510,10 +469,9 @@ process_command_line_options(int argc, char* argv[])
                    cerr << "WARNING!  In `process_command_line_options':"
                         << endl;
 
-
                }
 
-/*  ******* (7)  */
+@q  ******* (7)  @>
 
                else
                {
@@ -524,31 +482,36 @@ process_command_line_options(int argc, char* argv[])
                             << endl 
                             << "Non-option argument found."
                             << endl;
-
-
-   }  /* |if (DEBUG)|  */
+                   }  /* |if (DEBUG)|  */
 
                }  /* |else|  */
 
-/*  ******* (7)  */
+@q  ******* (7)  @>
 
            }  
 
-/*  ****** (6)  */
+@q  ****** (6)  @>
 
 
        }  /* |for| */ 
    
-/*  ***** (5)  */
+@q  ***** (5)  @>
  
   } /* |if (optind < argc)|  */
 
+@q ****** (6) @>
 
-/*  ****** (6)  */
+@q ***** (5) @>
 
-/*  ***** (5)  */
+@q **** (4) @>
 
-/*  **** (4)  */
+@q *** (3) @>
+
+   cerr << "in_filename_vector.size() == " << in_filename_vector.size() << endl;
+
+cerr << "YYY Enter <RETURN> to continue: ";
+getchar(); 
+
 
    return 0;
 
@@ -559,12 +522,15 @@ process_command_line_options(int argc, char* argv[])
 
 @ This is what's written to the header file \filename{cmdlnopt.hxx}.
 @(cmdlnopt.hxx@>=
+extern long int trace_value;
 @<Declare command-line functions@>@;@/
 
 @ This is what's compiled.
 @c
 @<Include files@>@;@/
 using namespace std;
+long int trace_value = 0;   
+extern vector<string> in_filename_vector;
 @<|process_command_line_options| definition@>@;@/
 
 @q * Emacs-Lisp code for use in indirect buffers when using the          @>

@@ -61,6 +61,7 @@ using namespace std;
 
 typedef void* yyscan_t;  
 
+#include "cmdlnopt.hxx"
 #include "parser.hxx"
 #include "scanner.hxx"
 #include "classes.hxx"
@@ -81,6 +82,8 @@ submit_mysql_query(string query_str,
 int
 get_data_from_database(MYSQL *&mysql);
 
+vector<string> in_filename_vector;
+
 @q * (1) Main@>
 @* Main.
 
@@ -92,17 +95,73 @@ main(int argc, char *argv[])
 
    bool DEBUG = true;  /* |false|  */
 
-   vector<string> in_filename_vector;
-
    MYSQL *mysql;
+
+   ofstream out_file_tex;
+   ofstream out_file_html;
+   ofstream out_file_mp;
 
    int status = 0;
 
-@q ** (2) @>
+@q *** (3) @>
 
    cerr << "Entering `main'." << endl;
 
-/* ** (2) Initialize  |mysql|  */
+@q *** (3) @>
+@
+@<Main@>=
+
+   status = process_command_line_options(argc, argv);
+
+   if (status != 0)
+   {
+      cerr << "ERROR!  In `main':  `process_command_line_options' failed, returning " << status << "." 
+           << endl
+           << "Exiting `taxonomy' unsuccessfully with exit status 1."
+           << endl;
+
+      exit(1);
+   }
+#if DEBUG_COMPILE
+   else if (DEBUG)
+   { 
+      cerr << "In `main':  `process_command_line_options' succeeded, returning 0."
+           << endl
+           << "`trace_value' == " << trace_value 
+           << endl;
+
+
+#if DEBUG_COMPILE
+
+      if (DEBUG)
+      { 
+         if (in_filename_vector.size() == 0)
+         {
+             cerr << "in_filename_vector is empty." << endl;
+         }
+         else 
+             cerr << "in_filename_vector.size() == " << in_filename_vector.size() << endl;
+
+         for (vector<string>::iterator iter = in_filename_vector.begin();
+              iter != in_filename_vector.end();
+              iter++)
+         {
+             cerr << "Filename:  " << *iter << endl;
+         }
+      }  
+#endif /* |DEBUG_COMPILE|  */@; 
+
+cerr << "XXX Enter <RETURN> to continue: ";
+getchar(); 
+
+   }  
+#endif /* |DEBUG_COMPILE|  */@; 
+
+@q *** (3) Initialize |mysql|.  @>
+
+@ Initialize |mysql|.
+
+@<Main@>=
 
    mysql = mysql_init(0);
 
@@ -134,39 +193,6 @@ main(int argc, char *argv[])
        fprintf(stderr, "Failed to connect to database: Error: %s\n",
                mysql_error(mysql));
    }
-
-@q ** (2) Read filenames from invocation.  @>
-
-@ Read filenames from invocation.
-\initials{LDF 2021.08.15.}
-
-@<Main@>=
-
-   for (int i = 1; i < argc; ++i)
-   {
-       in_filename_vector.push_back(string(argv[i]));
-   }
-
-#if DEBUG_COMPILE
-   if (DEBUG)
-   { 
-      if (in_filename_vector.size() == 0)
-      {
-          cerr << "in_filename_vector is empty." << endl;
-      }
-      else 
-          cerr << "in_filename_vector.size() == " << in_filename_vector.size() << endl;
-
-      for (vector<string>::iterator iter = in_filename_vector.begin();
-           iter != in_filename_vector.end();
-           iter++)
-      {
-          cerr << "Filename:  " << *iter << endl;
-      }
-
-   }  
-#endif /* |DEBUG_COMPILE|  */@; 
-
 
 @q ** (2) @>
 @
@@ -237,7 +263,7 @@ main(int argc, char *argv[])
         ++iter)
    {
       errno = 0;
-      fp = fopen("test_input.txt", "r");
+      fp = fopen(iter->c_str(), "r");
 
       if (fp == 0)
       {
@@ -280,6 +306,8 @@ main(int argc, char *argv[])
                  << endl;
          }      
 #endif /* |DEBUG_COMPILE|  */@; 
+
+         break; 
 
       }  /* |if (scanner_node->end_flag)|  */
 

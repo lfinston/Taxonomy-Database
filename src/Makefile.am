@@ -56,10 +56,10 @@ all: taxonomy$(EXEEXT)
 
 prog: taxonomy$(EXEEXT)
 
-taxonomy$(EXEEXT): taxonomy.o scanner.o parser.o classes.o
+taxonomy$(EXEEXT): taxonomy.o scanner.o parser.o classes.o cmdlnopt.o
 	g++ -o taxonomy$(EXEEXT) $^ $(LIBS)
 
-taxonomy.o: taxonomy.cxx classes.hxx parser.hxx scanner.hxx
+taxonomy.o: taxonomy.cxx classes.hxx cmdlnopt.hxx parser.hxx scanner.hxx
 	g++ -o taxonomy.o -DHAVE_CONFIG_H=1 -I/usr/include/mysql -g -c taxonomy.cxx
 
 taxonomy.cxx: taxonomy.web
@@ -68,20 +68,14 @@ taxonomy.cxx: taxonomy.web
 classes.cxx classes.hxx: classes.web
 	ctangle classes.web - classes.cxx
 
-classes.o: classes.cxx
+classes.o: classes.cxx parser.hxx scanner.hxx
 	g++ -o classes.o -DHAVE_CONFIG_H=1 -I/usr/include/mysql -g -c classes.cxx
 
+cmdlnopt.cxx cmdlnopt.hxx: cmdlnopt.web
+	ctangle cmdlnopt.web - cmdlnopt.cxx
 
-.PHONY: run
-
-run: taxonomy$(EXEEXT)
-	taxonomy$(EXEEXT)
-
-
-# @cat cpyrtcpp.txt > AAAtmp.txt
-# @echo >> AAAtmp.txt
-# @cat parser.yxx >> AAAtmp.txt
-# @mv AAAtmp.txt parser.yxx
+cmdlnopt.o: cmdlnopt.cxx 
+	g++ -o cmdlnopt.o -DHAVE_CONFIG_H=1 -I/usr/include/mysql -g -c cmdlnopt.cxx
 
 parser.y++: parser.web
 	ctangle $<
@@ -108,12 +102,20 @@ scanner.l++: scanner.web
 	check_scan_parse_output.sh scanner.lxx scanner.l++
 
 
+.PHONY: run
 
+run: taxonomy$(EXEEXT)
+	taxonomy$(EXEEXT)
+
+.PHONY: run-e
+
+run-e: taxonomy$(EXEEXT)
+	echo "end" | taxonomy$(EXEEXT)
 
 .PHONY: clean
 
 clean:
-	rm -f taxonomy.cxx taxonomy.o
+	rm -f *.cxx *.hxx *.o
 
 .PHONY: query
 
