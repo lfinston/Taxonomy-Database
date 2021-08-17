@@ -15,8 +15,6 @@ Phylum, phyla
 https://en.wikipedia.org/wiki/Phylum
 
 
-
-
 drop table Kingdoms;
 
 create table Kingdoms
@@ -49,7 +47,6 @@ create table Phyla
 );
 
 show columns from Phyla;
-
 
 
 
