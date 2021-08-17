@@ -102,6 +102,8 @@ main(int argc, char *argv[])
    ofstream out_file_html;
    ofstream out_file_mp;
 
+   FILE *fp = 0;
+
    int status = 0;
 
 @q *** (3) @>
@@ -227,13 +229,6 @@ getchar();
 @
 @<Main@>=
 
-@q ** (2) Parse input.  @>
-
-@ Parse input.  
-
-@<Main@>=
-
-
 #if 0 
    int BUFFER_SIZE = 256;
 
@@ -255,21 +250,23 @@ getchar();
 
    YY_BUFFER_STATE yy_buffer_state;
 
-   FILE *fp = 0;
-
    if (trace_value > 0)
       yydebug = 1; 
    else 
       yydebug = 0; 
 
+@q ** (2) @>
+
    for (vector<IO_Type>::iterator iter = io_vector.begin();
         iter != io_vector.end();
         ++iter)
    {
-      errno = 0;
-      fp = fopen(iter->in_filename.c_str(), "r");
+@q *** (3) @>
 
-      if (fp == 0)
+      errno = 0;
+      iter->in_file = fopen(iter->in_filename.c_str(), "r");
+
+      if (iter->in_file == 0)
       {
          cerr << "ERROR!  In `main':  `fopen' failed, returning NULL." << endl
               << "Failed to open file `" << iter->in_filename << "' for reading." << endl 
@@ -287,7 +284,7 @@ getchar();
       }  
 #endif /* |DEBUG_COMPILE|  */@; 
 
-      yyrestart(fp, parameter);
+      yyrestart(iter->in_file, parameter);
 
       status = yyparse(parameter);
 
@@ -297,8 +294,37 @@ getchar();
           cerr << "`yyparse' returned " << status << "." << endl;
       }  
 #endif /* |DEBUG_COMPILE|  */@; 
- 
-      fclose(fp);
+
+      if (status == 2)
+      {
+#if DEBUG_COMPILE
+          if (DEBUG)
+          { 
+              cerr << "`yyparse' returned 2.  Read `input' command." 
+                   << endl;
+          }     
+#endif /* |DEBUG_COMPILE|  */@; 
+
+      }
+      else
+      {
+
+#if DEBUG_COMPILE
+          if (DEBUG)
+          { 
+              cerr << "`yyparse' returned " << status << "."
+                   << endl 
+                   << "Read to `endinput' command, `end' command or EOF (end of file)." 
+                   << endl 
+                   << "Closing `iter->infile'."
+                   << endl;
+          }     
+#endif /* |DEBUG_COMPILE|  */@; 
+
+           fclose(iter->in_file);
+      }
+
+@q *** (3) @>
 
       if (scanner_node->end_flag)
       {
@@ -314,6 +340,8 @@ getchar();
          break; 
 
       }  /* |if (scanner_node->end_flag)|  */
+
+@q *** (3) @>
 
    }  /* |for|  */
 
