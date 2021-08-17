@@ -74,7 +74,7 @@ classes.o: classes.cxx parser.hxx scanner.hxx
 cmdlnopt.cxx cmdlnopt.hxx: cmdlnopt.web
 	ctangle cmdlnopt.web - cmdlnopt.cxx
 
-cmdlnopt.o: cmdlnopt.cxx 
+cmdlnopt.o: cmdlnopt.cxx classes.hxx parser.hxx scanner.hxx
 	g++ -o cmdlnopt.o -DHAVE_CONFIG_H=1 -I/usr/include/mysql -g -c cmdlnopt.cxx
 
 parser.y++: parser.web

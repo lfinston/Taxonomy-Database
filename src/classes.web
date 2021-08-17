@@ -68,6 +68,30 @@ typedef void* yyscan_t;
 @* Class declarations.
 \initials{LDF 2021.08.15.}
 
+@q ** (2) @>
+
+@
+@<class declarations@>=
+struct
+IO_Type
+{
+   string in_filename;
+   string out_filename;
+
+   FILE *in_file;
+
+   fpos_t in_file_pos;
+
+   ofstream out_file_tex;
+   ofstream out_file_html;
+
+   IO_Type(void) {return;}
+   IO_Type(const IO_Type &i) {in_filename = i.in_filename; out_filename = i.out_filename; return;}
+
+};
+
+@q ** (2) @>
+
 @*1 |class Scanner_Type|.
 @
 @<class declarations@>=

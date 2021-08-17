@@ -56,6 +56,7 @@ using namespace std;
 #include <sstream>   
 #include <string> 
 #include <vector>
+// #include <stack>
 
 #include "../config.h"
 
@@ -82,7 +83,7 @@ submit_mysql_query(string query_str,
 int
 get_data_from_database(MYSQL *&mysql);
 
-vector<string> in_filename_vector;
+vector<IO_Type> io_vector;
 
 @q * (1) Main@>
 @* Main.
@@ -135,18 +136,18 @@ main(int argc, char *argv[])
 
       if (DEBUG)
       { 
-         if (in_filename_vector.size() == 0)
+         if (io_vector.size() == 0)
          {
-             cerr << "in_filename_vector is empty." << endl;
+             cerr << "io_vector is empty." << endl;
          }
          else 
-             cerr << "in_filename_vector.size() == " << in_filename_vector.size() << endl;
+             cerr << "io_vector.size() == " << io_vector.size() << endl;
 
-         for (vector<string>::iterator iter = in_filename_vector.begin();
-              iter != in_filename_vector.end();
+         for (vector<IO_Type>::iterator iter = io_vector.begin();
+              iter != io_vector.end();
               iter++)
          {
-             cerr << "Filename:  " << *iter << endl;
+             cerr << "Filename:  " << iter->in_filename << endl;
          }
       }  
 #endif /* |DEBUG_COMPILE|  */@; 
@@ -261,17 +262,17 @@ getchar();
    else 
       yydebug = 0; 
 
-   for (vector<string>::iterator iter = in_filename_vector.begin();
-        iter != in_filename_vector.end();
+   for (vector<IO_Type>::iterator iter = io_vector.begin();
+        iter != io_vector.end();
         ++iter)
    {
       errno = 0;
-      fp = fopen(iter->c_str(), "r");
+      fp = fopen(iter->in_filename.c_str(), "r");
 
       if (fp == 0)
       {
          cerr << "ERROR!  In `main':  `fopen' failed, returning NULL." << endl
-              << "Failed to open file `" << *iter << "' for reading." << endl 
+              << "Failed to open file `" << iter->in_filename << "' for reading." << endl 
               << "`errno' == " << errno << " == " << strerror(errno) << endl
               << "Will try to continue."
               << endl;
@@ -282,7 +283,7 @@ getchar();
       else if (DEBUG)
       { 
          cerr << "In `main':  `fopen' succeeded, returning non-NULL." << endl
-              << "Opened file `" << *iter << "' for reading successfully." << endl; 
+              << "Opened file `" << iter->in_filename << "' for reading successfully." << endl; 
       }  
 #endif /* |DEBUG_COMPILE|  */@; 
 

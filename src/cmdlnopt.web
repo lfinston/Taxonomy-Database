@@ -50,13 +50,22 @@
 #include <math.h>
 #include <sstream>   
 #include <vector>
+// #include <stack>
 
 #if 0
 #include <map>
 #include <deque>
 #endif
 
+#include <mysql.h>
+
 #include "../config.h"
+
+typedef void* yyscan_t;  
+
+#include "parser.hxx"
+#include "scanner.hxx"
+#include "classes.hxx"
 
 @q  ** (2) |process_command_line_options.  @>
 @
@@ -77,9 +86,7 @@ process_command_line_options(int argc, char* argv[])
 
    int status = 0;
 
-   string output_filename;
-
-   ofstream output_file_strm;
+   IO_Type curr_io_type;
 
 @q  **** (4)  @>
 
@@ -253,9 +260,6 @@ process_command_line_options(int argc, char* argv[])
 
 
             output_filename = optarg;
-
-            output_file_strm.open(output_filename.c_str());
-
 
 @q  ****** (6)  @>
 
@@ -435,8 +439,6 @@ process_command_line_options(int argc, char* argv[])
        {
 @q  ****** (6)  @>
 
-          
-
            if (DEBUG)
            {
                cerr << "argv[" << j << "] == " << argv[j] << endl
@@ -444,7 +446,8 @@ process_command_line_options(int argc, char* argv[])
 
            }  /* |if (DEBUG)|  */ 
 
-           in_filename_vector.push_back(argv[j]);
+           curr_io_type.in_filename.assign(argv[j]);
+           io_vector.push_back(curr_io_type);
 
 @q  ****** (6) First non-option argument.   @>
 
@@ -507,7 +510,7 @@ process_command_line_options(int argc, char* argv[])
 
 @q *** (3) @>
 
-   cerr << "in_filename_vector.size() == " << in_filename_vector.size() << endl;
+   cerr << "io_vector.size() == " << io_vector.size() << endl;
 
 cerr << "YYY Enter <RETURN> to continue: ";
 getchar(); 
@@ -523,6 +526,7 @@ getchar();
 @ This is what's written to the header file \filename{cmdlnopt.hxx}.
 @(cmdlnopt.hxx@>=
 extern long int trace_value;
+extern string output_filename;
 @<Declare command-line functions@>@;@/
 
 @ This is what's compiled.
@@ -530,7 +534,8 @@ extern long int trace_value;
 @<Include files@>@;@/
 using namespace std;
 long int trace_value = 0;   
-extern vector<string> in_filename_vector;
+extern vector<IO_Type> io_vector;
+string output_filename;
 @<|process_command_line_options| definition@>@;@/
 
 @q * Emacs-Lisp code for use in indirect buffers when using the          @>

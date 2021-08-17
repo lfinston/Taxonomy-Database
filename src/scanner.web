@@ -51,9 +51,9 @@
 #include <sstream>   
 
 #include <vector>
-#include <deque>
+// #include <deque>
 #include <stack>
-#include <set>
+// #include <set>
 
 #if 0
 #include <pthread.h>
