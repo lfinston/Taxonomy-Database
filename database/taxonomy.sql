@@ -36,10 +36,97 @@ insert into Kingdoms (id, name) values
 
 select * from Kingdoms order by id;
 
+drop table Phyla;
+
 create table Phyla
 (
-   id int unique not null
+   id int unique not null,
+   kingdom_id int not null,
+   name varchar(64) not null,
+   name_latin varchar(64) not null,
+   name_german varchar(64) not null
+   
 );
+
+show columns from Phyla;
+
+
+
+
+Choanoflagellata
+Desmarella 
+ Animalia 	
+ Porifera 
+ Eumetazoa 	
+ Ctenophora 
+ ParaHoxozoa 	
+  	
+  	
+
+Placozoa Trichoplax adhaerens photograph.png
+ 
+  	
+
+Cnidaria Cauliflour Jellyfish, Cephea cephea at Marsa Shouna, Red Sea, Egypt SCUBA.jpg
+ 
+ 
+Bilateria 	
+  	
+
+Xenacoelomorpha Proporus sp.png
+ 
+Nephrozoa 	
+Deuterostomia 	
+  	
+
+Chordata Cyprinus carpio3.jpg
+ 
+  	
+
+Ambulacraria Portugal 20140812-DSC01434 (21371237591).jpg
+ 
+ 
+Protostomia 	
+Ecdysozoa 	
+  	
+
+Scalidophora Priapulus caudatus 20150625.jpg
+ 
+  	
+  	
+
+Panarthropoda Long nosed weevil edit.jpg
+ 
+  	
+
+Nematoida CelegansGoldsteinLabUNC 2.jpg
+ 
+ 
+>529 mya
+Spiralia 	
+Gnathifera 	
+  	
+
+Rotifera and allies Bdelloid Rotifer (cropped).jpg
+ 
+  	
+
+Chaetognatha Chaetoblack 3.png
+ 
+ 
+Platytrochozoa 	
+  	
+
+Platyhelminthes and allies Sorocelis reticulosa.jpg
+ 
+Lophotrochozoa 	
+  	
+
+Mollusca and allies Grapevinesnail 01.jpg
+ 
+  	
+
+Annelida and allies Polychaeta (no) 2.jpg 
 
 
 create table Classes
@@ -399,3 +486,12 @@ Viridasiidae 	2 	7
 Xenoctenidae 	4 	33 		
 Zodariidae 	87 	1165 	ant spiders 	Zodarion germanicum
 Zoropsidae 	27 	183 		Zoropsis spinimana
+
+
+********************************************************************************************
+
+Butterfly bush
+
+https://ehttps://en.wikipedia.org/wiki/Buddleja
+
+https://en.wikipedia.org/wiki/Buddleja_davidii

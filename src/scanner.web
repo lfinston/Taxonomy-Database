@@ -105,11 +105,6 @@ to {\bf yylex} can be set here.
 
    cerr << "Entering `yylex'." << endl;
 
-
-
-
-
-
 @q = Scan_Parse_Parameter_Type* param = static_cast<Scan_Parse_Parameter_Type*>(yyextra); @>
 @q = if (scanner_trace == true) SCANNER_DEBUG = true;                                     @>
 
@@ -393,6 +388,23 @@ to {\bf yylex} can be set here.
 
 @=}@>
 
+@q *** (3) INPUT.  @>
+@ \.{INPUT}.
+
+@<Rules@>=
+@=INPUT|input {@>
+
+#if DEBUG_COMPILE
+   if (DEBUG)
+   {
+       cerr << "In `yylex':  " << yytext << endl;
+
+   }  /* |if (DEBUG)|  */
+#endif  /* |DEBUG_COMPILE|  */ 
+
+   return INPUT;
+
+@=}@>
 
 
 

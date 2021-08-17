@@ -118,6 +118,7 @@ yyerror(void* v, char const* s);
 
 @<Token and type declarations@>=
 
+%token<int_value> INPUT@;@/
 %token<int_value> END@;@/
 %token<int_value> ENDINPUT@;@/
 %token<int_value> ASTERISK@;@/
@@ -252,6 +253,43 @@ yyerror(void* v, char const* s);
 
 };
 
+@q *** (3) Statement:  INPUT STRING.  @>
+
+@ Statement: INPUT STRING.
+
+@q **** (4) statement --> INPUT STRING @>
+
+@ \<statement> $\longrightarrow$ \.{INPUT} \.{STRING}.
+
+@<Rules@>=
+
+@=statement: INPUT STRING@>
+{
+@q ***** (5) @>
+
+#if DEBUG_COMPILE 
+    if (DEBUG)
+    {
+        cerr << "*** Parser:  Rule `statement:  INPUT STRING'." 
+             << endl 
+             << "$2 == " << @=$2@>
+             << endl;
+
+    }  /* |if (DEBUG)|  */  
+#endif  /* |DEBUG_COMPILE|  */ 
+
+    
+
+#if 0 
+       int fgetpos(FILE *stream, fpos_t *pos);
+
+       int fsetpos(FILE *stream, const fpos_t *pos);
+#endif 
+
+@q ***** (5) @>
+   
+};
+
 @q *** (3) Statement:  ENDINPUT.  @>
 @ Statement.
 
@@ -285,8 +323,8 @@ yyerror(void* v, char const* s);
 @<Token and type declarations@>=
 %type<string_value> combined_string@;@/
 
-@q *** (3) Statement:  QUERY STRING.  @>
-@ Statement: QUERY STRING.
+@q *** (3) Statement:  QUERY combined_string.  @>
+@ Statement: QUERY combined_string.
 
 @q **** (4) statement --> QUERY combined_string  @>
 

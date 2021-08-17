@@ -256,7 +256,10 @@ getchar();
 
    FILE *fp = 0;
 
-   yydebug = 0; /* 1 */
+   if (trace_value > 0)
+      yydebug = 1; 
+   else 
+      yydebug = 0; 
 
    for (vector<string>::iterator iter = in_filename_vector.begin();
         iter != in_filename_vector.end();
