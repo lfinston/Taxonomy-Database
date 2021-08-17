@@ -51,8 +51,9 @@
 #include <sstream>   
 
 #include <vector>
-// #include <deque>
-#include <stack>
+#include <deque>
+
+// #include <stack>
 // #include <set>
 
 #if 0

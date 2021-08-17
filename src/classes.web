@@ -56,6 +56,7 @@ using namespace std;
 #include <sstream>   
 #include <string> 
 #include <vector>
+#include <deque>
 
 #include "../config.h"
 
@@ -80,15 +81,20 @@ IO_Type
 
    FILE *in_file;
 
-   fpos_t in_file_pos;
+   long in_file_pos;
 
    ofstream out_file_tex;
    ofstream out_file_html;
 
-   IO_Type(void) {return;}
-   IO_Type(const IO_Type &i) {in_filename = i.in_filename; out_filename = i.out_filename; return;}
+   IO_Type(void) {in_file_pos = 0; in_file = static_cast<FILE *>(0); return;}
+   IO_Type(const IO_Type &i) {in_filename = i.in_filename; 
+                              out_filename = i.out_filename; 
+                              in_file = 0;
+                              in_file_pos = 0;
+                              return;}
 
 };
+
 
 @q ** (2) @>
 
@@ -105,6 +111,8 @@ Scanner_Type
     int id;
   
     bool end_flag;
+
+    string input_filename;
 
     public:
 
@@ -157,6 +165,7 @@ public:
 @c
 @<Include files@>@;
 @<class declarations@>@;@/
+deque<IO_Type> io_deque;
 
 @q **** (4) This is what's written to the header file `classes.hxx'.  @>
 
@@ -167,6 +176,7 @@ public:
 #define CLASSES_H 1
 using namespace std;
 @<class declarations@>@;@/
+extern deque<IO_Type> io_deque;
 #endif 
 
 

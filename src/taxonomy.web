@@ -56,6 +56,7 @@ using namespace std;
 #include <sstream>   
 #include <string> 
 #include <vector>
+#include <deque>
 // #include <stack>
 
 #include "../config.h"
@@ -82,8 +83,6 @@ submit_mysql_query(string query_str,
 
 int
 get_data_from_database(MYSQL *&mysql);
-
-vector<IO_Type> io_vector;
 
 @q * (1) Main@>
 @* Main.
@@ -138,24 +137,21 @@ main(int argc, char *argv[])
 
       if (DEBUG)
       { 
-         if (io_vector.size() == 0)
+         if (io_deque.size() == 0)
          {
-             cerr << "io_vector is empty." << endl;
+             cerr << "io_deque is empty." << endl;
          }
          else 
-             cerr << "io_vector.size() == " << io_vector.size() << endl;
+             cerr << "io_deque.size() == " << io_deque.size() << endl;
 
-         for (vector<IO_Type>::iterator iter = io_vector.begin();
-              iter != io_vector.end();
+         for (deque<IO_Type>::iterator iter = io_deque.begin();
+              iter != io_deque.end();
               iter++)
          {
              cerr << "Filename:  " << iter->in_filename << endl;
          }
       }  
 #endif /* |DEBUG_COMPILE|  */@; 
-
-cerr << "XXX Enter <RETURN> to continue: ";
-getchar(); 
 
    }  
 #endif /* |DEBUG_COMPILE|  */@; 
@@ -257,34 +253,59 @@ getchar();
 
 @q ** (2) @>
 
-   for (vector<IO_Type>::iterator iter = io_vector.begin();
-        iter != io_vector.end();
-        ++iter)
+   deque<IO_Type>::iterator iter;
+
+   IO_Type curr_io_type;
+
+   while (io_deque.size() > 0)
    {
 @q *** (3) @>
 
-      errno = 0;
-      iter->in_file = fopen(iter->in_filename.c_str(), "r");
+      iter = io_deque.begin();
+      cerr << "iter->in_filename == " << iter->in_filename << endl;
 
-      if (iter->in_file == 0)
+      if (iter->in_file != 0)
       {
-         cerr << "ERROR!  In `main':  `fopen' failed, returning NULL." << endl
-              << "Failed to open file `" << iter->in_filename << "' for reading." << endl 
-              << "`errno' == " << errno << " == " << strerror(errno) << endl
-              << "Will try to continue."
-              << endl;
-
-         continue;
+          cerr << "`iter->in_file' != 0 is non-NULL."
+               << endl 
+               << "Will continue reading from `iter->in_filename' == " << iter->in_filename
+               << endl;
       }
+      else /* |iter->in_file == 0|  */
+      {
+          cerr << "`iter->in_file' is NULL."
+               << endl 
+               << "Will open `iter->in_filename' == " << iter->in_filename << " for reading."
+               << endl;
+
+          errno = 0;
+          iter->in_file = fopen(iter->in_filename.c_str(), "r");
+
+          if (iter->in_file == 0)
+          {
+             cerr << "ERROR!  In `main':  `fopen' failed, returning NULL." << endl
+                  << "Failed to open file `" << iter->in_filename << "' for reading." << endl 
+                  << "`errno' == " << errno << " == " << strerror(errno) << endl
+                  << "Will try to continue."
+                  << endl;
+
+             continue;
+          }
 #if DEBUG_COMPILE
-      else if (DEBUG)
-      { 
-         cerr << "In `main':  `fopen' succeeded, returning non-NULL." << endl
-              << "Opened file `" << iter->in_filename << "' for reading successfully." << endl; 
-      }  
+          else if (DEBUG)
+          { 
+             cerr << "In `main':  `fopen' succeeded, returning non-NULL." << endl
+                  << "Opened file `" << iter->in_filename << "' for reading successfully." << endl; 
+          }    
 #endif /* |DEBUG_COMPILE|  */@; 
 
-      yyrestart(iter->in_file, parameter);
+          yypush_buffer_state(yy_create_buffer(iter->in_file, YY_BUF_SIZE, parameter), parameter);
+
+      }  /* |else| (|!YY_CURRENT_BUFFER|)  */
+
+@q *** (3) @>
+@
+@<Main@>=
 
       status = yyparse(parameter);
 
@@ -297,15 +318,33 @@ getchar();
 
       if (status == 2)
       {
+@q **** (4) @>
+
 #if DEBUG_COMPILE
           if (DEBUG)
           { 
               cerr << "`yyparse' returned 2.  Read `input' command." 
+                   << endl
+                   << "`scanner_node->input_filename' == " << scanner_node->input_filename
                    << endl;
           }     
 #endif /* |DEBUG_COMPILE|  */@; 
 
-      }
+          io_deque.push_front(IO_Type());
+          io_deque.front().in_filename = scanner_node->input_filename;
+          io_deque.front().in_file = 0;
+
+          continue;
+      
+
+@q **** (4) @>
+
+      }  /* |if (status == 2)|  */
+
+@q *** (3) @>
+@
+@<Main@>=
+
       else
       {
 
@@ -322,9 +361,14 @@ getchar();
 #endif /* |DEBUG_COMPILE|  */@; 
 
            fclose(iter->in_file);
+           io_deque.pop_front();
+           yypop_buffer_state(parameter);     			
+
       }
 
 @q *** (3) @>
+@
+@<Main@>=
 
       if (scanner_node->end_flag)
       {
@@ -337,13 +381,22 @@ getchar();
          }      
 #endif /* |DEBUG_COMPILE|  */@; 
 
+         for (deque<IO_Type>::iterator a_iter = io_deque.begin(); 
+              a_iter != io_deque.end(); 
+              ++a_iter)
+         {
+             fclose(iter->in_file);
+         }
+
+         io_deque.clear(); 
+
          break; 
 
       }  /* |if (scanner_node->end_flag)|  */
 
 @q *** (3) @>
 
-   }  /* |for|  */
+   }  /* |while|  */
 
 @q *** (3) @> 
 @

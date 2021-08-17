@@ -58,8 +58,8 @@
 #include <map>
 #include <vector>
 #include <deque>
-#include <stack>
-#include <set>
+// #include <stack>
+// #include <set>
 
 #include "../config.h"
 
@@ -166,7 +166,7 @@ yyerror(void* v, char const* s);
 @=program: statement_list END@>
 {
 
-    Scanner_Node param = static_cast<Scanner_Node>(yyget_extra(parameter));
+    Scanner_Node scanner_node = static_cast<Scanner_Node>(yyget_extra(parameter));
 
 #if DEBUG_COMPILE 
     if (DEBUG)
@@ -178,11 +178,11 @@ yyerror(void* v, char const* s);
 #endif  /* |DEBUG_COMPILE|  */ 
 
 
-    param->end_flag = true;
+    scanner_node->end_flag = true;
 
 #if 1 
-    cerr << "param->id       == " << param->id << endl
-         << "param->end_flag == " << param->end_flag << endl;
+    cerr << "scanner_node->id       == " << scanner_node->id << endl
+         << "scanner_node->end_flag == " << scanner_node->end_flag << endl;
 #endif 
 
     return 0;
@@ -267,6 +267,8 @@ yyerror(void* v, char const* s);
 {
 @q ***** (5) @>
 
+    Scanner_Node scanner_node = static_cast<Scanner_Node>(yyget_extra(parameter));
+
 #if DEBUG_COMPILE 
     if (DEBUG)
     {
@@ -278,13 +280,9 @@ yyerror(void* v, char const* s);
     }  /* |if (DEBUG)|  */  
 #endif  /* |DEBUG_COMPILE|  */ 
 
-    
+    scanner_node->input_filename.assign(@=$2@>);        
 
-#if 0 
-       int fgetpos(FILE *stream, fpos_t *pos);
-
-       int fsetpos(FILE *stream, const fpos_t *pos);
-#endif 
+    return 2;
 
 @q ***** (5) @>
    

@@ -1,2 +1,5 @@
 input abc.txt
+
+query after reading abc.txt
+
 end

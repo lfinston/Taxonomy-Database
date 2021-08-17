@@ -50,11 +50,11 @@
 #include <math.h>
 #include <sstream>   
 #include <vector>
-// #include <stack>
+#include <deque>
 
 #if 0
 #include <map>
-#include <deque>
+#include <stack>
 #endif
 
 #include <mysql.h>
@@ -447,7 +447,7 @@ process_command_line_options(int argc, char* argv[])
            }  /* |if (DEBUG)|  */ 
 
            curr_io_type.in_filename.assign(argv[j]);
-           io_vector.push_back(curr_io_type);
+           io_deque.push_back(curr_io_type);
 
 @q  ****** (6) First non-option argument.   @>
 
@@ -510,16 +510,16 @@ process_command_line_options(int argc, char* argv[])
 
 @q *** (3) @>
 
-   cerr << "io_vector.size() == " << io_vector.size() << endl;
-
-cerr << "YYY Enter <RETURN> to continue: ";
-getchar(); 
-
+#if DEBUG_COMPILE
+   if (DEBUG)
+   { 
+      cerr << "io_deque.size() == " << io_deque.size() << endl;
+   }  
+#endif /* |DEBUG_COMPILE|  */@; 
 
    return 0;
 
 }  /* End of |process_command_line_options| definition  */
-
 
 @ Putting command-line options together.
 
@@ -534,7 +534,6 @@ extern string output_filename;
 @<Include files@>@;@/
 using namespace std;
 long int trace_value = 0;   
-extern vector<IO_Type> io_vector;
 string output_filename;
 @<|process_command_line_options| definition@>@;@/
 
