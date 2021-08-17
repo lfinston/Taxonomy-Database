@@ -1,5 +1,9 @@
-input abc.txt
+#input abc.txt
 
-query after reading abc.txt
+# query commented-out
+
+query "after reading abc.txt"; ####  \" ditto " *** second part of query text";
+
+
 
 end

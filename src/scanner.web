@@ -135,6 +135,24 @@ to {\bf yylex} can be set here.
 @=}@>
 
 
+@q **** (4) Semi-Colon.  @>
+@ Semi-colon.
+
+@<Rules@>=
+@=; {@>
+
+#if DEBUG_COMPILE
+   if (DEBUG)
+   {
+       cerr << "In `yylex':  " << yytext << " (semi-colon)" << endl;
+
+   }  /* |if (DEBUG)|  */
+#endif  /* |DEBUG_COMPILE|  */ 
+
+   return SEMI_COLON; 
+
+@=}@>
+
 @q **** SELECT (4) @> 
 @ SELECT
 @<Rules@>=
@@ -446,11 +464,34 @@ to {\bf yylex} can be set here.
 
 @=}@>
 
+@q *** (3) ditto.  @>
+@ ditto (double-quote character as string).
+
+@<Rules@>=
+@=ditto|DITTO|Ditto {@>
+
+   strcpy(yylval->string_value, "\"");
+
+#if DEBUG_COMPILE 
+   if (DEBUG)
+   {
+       cerr << "In `yylex':  ditto == " << yytext
+            << endl
+            << "Returning `STRING'."
+            << endl;
+
+   }  
+#endif  /* |DEBUG_COMPILE|  */ 
+
+   return STRING;
+
+@=}@>
+
 @q *** (3) Comments.  @>
 @ Comments.  
 
 @<Rules@>=
-@=%.*$ {@>
+@=(%|#).*$ {@>
 
 #if DEBUG_COMPILE
    if (DEBUG)
@@ -486,7 +527,7 @@ to {\bf yylex} can be set here.
 @ Undelimited string.
 
 @<Rules@>=
-@=[[:alnum:]./;~@@()+\?$][[:alnum:]./;\-_~+@@()\?$]* {@>
+@=[[:alnum:]./~@@()+\?$][[:alnum:]./\-_~+@@()\?$]* {@>
 
    strcpy(yylval->string_value, yytext);
 
@@ -505,6 +546,40 @@ to {\bf yylex} can be set here.
 
 @=}@>
 
+
+
+
+
+@q *** (3) Delimited string:  "...".  @>
+@ Delimited string:  \.{\char`\"}$\ldots$\.{\char`\"}.  
+
+@<Rules@>=
+@=\"[^\"]*\" {@>
+
+   string temp_str = yytext;
+
+   string::size_type s = temp_str.size();
+
+   temp_str.erase(0, 1);
+   temp_str.erase(s - 2, s - 1);
+
+   size_t pos = string::npos;
+
+#if DEBUG_COMPILE 
+   if (DEBUG)
+   {
+       cerr << "In `yylex':  Delimited string == " << yytext
+            << endl
+            << "Returning `STRING'."
+            << endl;
+   }  
+#endif  /* |DEBUG_COMPILE|  */ 
+
+   strcpy(yylval->string_value, temp_str.c_str());
+  
+   return STRING;
+
+@=}@>
 
 @q ** (2) Additional functions.  @>
 

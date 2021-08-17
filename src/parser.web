@@ -118,10 +118,11 @@ yyerror(void* v, char const* s);
 
 @<Token and type declarations@>=
 
+%token<int_value> ASTERISK@;@/
+%token<int_value> SEMI_COLON@;@/
 %token<int_value> INPUT@;@/
 %token<int_value> END@;@/
 %token<int_value> ENDINPUT@;@/
-%token<int_value> ASTERISK@;@/
 %token<int_value> SELECT@;@/
 %token<int_value> ALL@;@/
 %token<int_value> FROM@;@/
@@ -396,13 +397,37 @@ yyerror(void* v, char const* s);
     }  /* |if (DEBUG)|  */  
 #endif  /* |DEBUG_COMPILE|  */ 
 
-     strcat(@=$$@>, " ");
      strcat(@=$$@>, @=$2@>);
 
 @q ***** (5) @>
 
 };
 
+@q *** (3) Statement:  SEMI_COLON.  @>
+@ Statement.
+
+@q **** (4) statement --> SEMI_COLON  @>
+
+@ \<statement> $\longrightarrow$ \.{SEMI\_COLON}. 
+
+@<Rules@>=
+
+@=statement: SEMI_COLON@>
+{
+@q ***** (5) @>
+
+#if DEBUG_COMPILE 
+    if (DEBUG)
+    {
+        cerr << "*** Parser:  Rule `statement:  SEMI_COLON'." 
+             << endl;
+
+    }  /* |if (DEBUG)|  */  
+#endif  /* |DEBUG_COMPILE|  */ 
+
+@q ***** (5) @>
+   
+};
 
 @
 @<Garbage@>=
