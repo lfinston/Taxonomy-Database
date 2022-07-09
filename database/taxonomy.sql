@@ -492,3 +492,26 @@ Butterfly bush
 https://ehttps://en.wikipedia.org/wiki/Buddleja
 
 https://en.wikipedia.org/wiki/Buddleja_davidii
+
+
+********************************************************************************************
+
+/home/laurence/Photos/Landscape/Botanical_Garden_Goettingen/
+
+asclepios_tuberosa01.jpg
+asclepios_tuberosa02.jpg
+asclepios_tuberosa03.jpg
+asclepios_tuberosa04.jpg
+asclepios_tuberosa05.jpg
+asclepios_tuberosa06.jpg
+asclepios_tuberosa07.jpg
+asphodeline_liburnica08.jpg
+asphodeline_liburnica09.jpg
+asphodeline_liburnica11.jpg
+kniphofia_citrina12.jpg
+kniphofia_citrina13.jpg
+
+Asclepios tuberosa
+Asphodeline liburnica
+Kniphofia citrina
+
