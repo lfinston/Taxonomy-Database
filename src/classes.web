@@ -125,7 +125,7 @@ Scanner_Type
 
 typedef Scanner_Type *Scanner_Node;
 
-@*1 |class kingdom|.
+@*1 |class Kingdom|.
 
 @<class declarations@>=
 class Kingdom
