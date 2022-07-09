@@ -511,13 +511,23 @@ asphodeline_liburnica11.jpg
 kniphofia_citrina12.jpg
 kniphofia_citrina13.jpg
 
+-- ***************************************
+
 
 Apocynaceae
 Asclepios tuberosa
 Knollige Seidenpflanze
 östl. N-Amerika
 
+-- ***************************************
+
 Asphodeline liburnica
+
+https://de.wikipedia.org/wiki/Liburnische_Junkerlilie
+https://en.wikipedia.org/wiki/Asphodeline
+https://de.wikipedia.org/wiki/Junkerlilien
+
+-- ***************************************
 
 Xanthorrhoeaceae
 Kniphofia citrina
