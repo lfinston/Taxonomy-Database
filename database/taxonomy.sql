@@ -511,7 +511,14 @@ asphodeline_liburnica11.jpg
 kniphofia_citrina12.jpg
 kniphofia_citrina13.jpg
 
-Asclepios tuberosa
-Asphodeline liburnica
-Kniphofia citrina
 
+Apocynaceae
+Asclepios tuberosa
+Knollige Seidenpflanze
+östl. N-Amerika
+
+Asphodeline liburnica
+
+Xanthorrhoeaceae
+Kniphofia citrina
+Südafrika
