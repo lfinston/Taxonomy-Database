@@ -143,12 +143,31 @@ create table Families
    id int unique not null
 );
 
-Genus
+/* ** (2) Genera (Genus)  */
+
+drop table Genera;
 
 create table Genera
 (
-   id int unique not null
+   id int unique not null,
+   name_latin          varchar(128) not null default  "",
+   common_name_english varchar(128) not null default  "",
+   common_name_german  varchar(128) not null default  "",
+   family_id int not null default 0
 );
+
+insert into Genera (id, name_latin) values (0, "dummy");
+
+
+select * from Genera order by id;
+
+insert into Genera (id, name_latin, common_name_english, common_name_german)
+   values (1, "Sambucus", "elder", "Holunder");
+
+insert into Genera (id, name_latin, common_name_english, common_name_german)
+   values (2, "Juniperus", "juniper", "Wacholder");
+
+
 
 drop table Species;
 create table Species
