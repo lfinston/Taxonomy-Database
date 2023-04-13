@@ -158,6 +158,11 @@ create table Genera
 
 insert into Genera (id, name_latin) values (0, "dummy");
 
+https://en.wikipedia.org/wiki/Juniper
+https://de.wikipedia.org/wiki/Wacholder
+
+https://de.wikipedia.org/wiki/Holunder
+https://en.wikipedia.org/wiki/Sambucus
 
 select * from Genera order by id;
 
