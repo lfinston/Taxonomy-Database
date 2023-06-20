@@ -28,7 +28,7 @@
 
   
 .# Process this file with autoconf to produce a configure script.
-AC_INIT([Taxonomy-Database], [1.0], [Laurence.Finston@gmx.de], [Taxonomy-Database])
+AC_INIT([Taxonomy-Database],[1.0],[Laurence.Finston@gmx.de],[Taxonomy-Database])
 AC_CONFIG_SRCDIR([src/taxonomy.web])
 AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS(config.h)
@@ -51,7 +51,15 @@ AC_DEFINE_UNQUOTED([HAVE_GZIP], $HAVE_GZIP, d
 AC_CHECK_LIB(mysqlclient, mysql_init)
 
 # Checks for header files.
-AC_HEADER_STDC
+m4_warn([obsolete],
+[The preprocessor macro `STDC_HEADERS' is obsolete.
+  Except in unusual embedded environments, you can safely include all
+  ISO C90 headers unconditionally.])dnl
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 AC_CHECK_HEADERS([errno.h float.h limits.h stdlib.h \
                   unistd.h pthread.h mysql.h])
 
@@ -74,13 +82,11 @@ AC_CONFIG_FILES([Makefile src/Makefile])
 AC_C_BIGENDIAN
 
 AC_ARG_ENABLE([dummy],
-AC_HELP_STRING([--enable-debug-compile],
-[Enable conditionally compiled debugging output (this is the default).]),
+AS_HELP_STRING([--enable-debug-compile],[Enable conditionally compiled debugging output (this is the default).]),
 [],[])
 
 AC_ARG_ENABLE([debug-compile], 
-[AC_HELP_STRING([--disable-debug-compile],
-        [Disable conditionally compiled debugging output.])],
+[AS_HELP_STRING([--disable-debug-compile],[Disable conditionally compiled debugging output.])],
 [if test $enableval == "yes"
 then
 echo "Enabling conditional compilation of debugging output"

@@ -5,9 +5,11 @@ laurence@laurence-B365M-D3H:~$ sudo mysql
 mysql> use Taxonomy;
 Database changed
 
-mysql> GRANT ALL ON Taxonomy TO 'laurence'@'localhost';
+mysql> GRANT ALL ON Taxonomy TO 'lf'@'localhost';
 mysql> create user 'taxonomy'@'localhost';
-mysql> GRANT ALL ON Taxonomy.* TO 'taxonomy'@'localhost';
+mysql> 
+
+GRANT ALL ON Taxonomy TO 'taxonomy'@'localhost';
 
 https://en.wikipedia.org/wiki/Taxonomic_rank
 
@@ -33,6 +35,8 @@ insert into Kingdoms (id, name) values
 (3, "Fungi");
 
 select * from Kingdoms order by id;
+
+delete from Kingdoms;
 
 drop table Phyla;
 

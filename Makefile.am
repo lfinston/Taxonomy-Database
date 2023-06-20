@@ -46,6 +46,25 @@ EXTRA_DIST = ChangeLog reconfig.sh
 
 SUBDIRS = $(SOURCEDIR) #$(DOCDIR) 
 
+.PHONY: cxx prog run
+
+cxx: taxonomy.cxx
+
+prog: taxonomy($EXEEXT)
+
+run: taxonomy($EXEEXT)
+	./taxonomy
+
+taxonomy($EXEEXT): taxonomy.o
+	g++ -o $@ $< -L/usr/lib/mysql -lmysqlclient -lm 
+           
+taxonomy.o: taxonomy.cxx
+	g++ -c -g -DHAVE_CONFIG_H -I/usr/include/mysql -o $@ $<
+
+taxonomy.cxx: taxonomy.web
+	ctangle $<
+	mv taxonomy.c $@
+
 
 # TAGS : 
 # 	$(MAKE) TAGS -C $(SOURCEDIR)

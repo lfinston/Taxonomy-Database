@@ -1,17 +1,268 @@
-@q **** FLOAT (4) @> 
-@q @ FLOAT @>
-@q @<Rules@>= @>
-@q @=float|FLOAT {@> @>
+{| class="wikitable"
+|-
+  | style="background: #ffe0e0" width="15%"|
+  | [[Protostome]]
+  |rowspan="4"| [[Bilateria]]
+  |rowspan="2"| [[Nephrozoa]]
+|-
+  | style="background: #f8de7e"|
+  | [[Deuterostome]]
+|-
+  | style="background: #a0b0d0"|
+  | Basal/disputed
+  |rowspan="4"| Non-Bilateria
+|-
+  | style="background: #f8be9a"|
+  | [[Vendobionta]]
+|-
+  | style="background: #a6ba9e"|
+  |colspan="2" | [[Parazoa]]
+|-
+  | style="background: #bebebe"|
+  |colspan="2"| Others
+|}
 
-@q    return FLOAT; @>
+|[[Annelida]]
+|Little ring <ref name="K&D">{{cite book | last1 = Margulis | first1 = Lynn | author-link = Lynn Margulis | last2 = Chapman
+ | first2 = Michael J. | title = Kingdoms and Domains | publisher = Academic Press | edition = 4th corrected | date = 2009 | location = London | isbn = 9780123736215 | url=https://books.google.com/books?id=9IWaqAOGyt4C}}</ref>{{rp|306}}
+|Segmented worms
+|Multiple circular segments
+|{{nts|22000}} + extant
+|-style="background: #bebebe"
+|[[Agmata]]
+|Fragmented
+|Agmates
+|Calcareous conical shells
+|5 species, extinct
+|-style="background: #a6ba9e"
+|[[Archaeocyatha]]
+|Ancient cups
+|Archaeocyathids
+|An extinct taxon of sponge-grade, reef-building organisms living in warm tropical and subtropical waters during the Early Cambrian. 
+|3 known classes (Extinct)
+|- style="background: #ffe0e0"
+|[[Arthropoda]]
+|Jointed foot
+|Arthropods
+|Segmented bodies and jointed limbs, with [[Chitin]] [[exoskeleton]]
+|{{nts|1250000}}+ extant;<ref name="Zhang2013" /> 20,000+ extinct
+|- style="background: #ffe0e0"
+|[[Brachiopoda]]
+|Arm foot<ref name="K&D" />{{rp|336}}
+|Lampshells<ref name="K&D" />{{rp|336}}
+|[[Lophophore]] and [[Brachiopod#pedicle|pedicle]]
+|{{nts|300}}-500 extant; 12,000+ extinct<!--Please do not change data without providing a reliable source-->
+|- style="background: #ffe0e0"
+|[[Bryozoa]] ([[Ectoprocta]])
+|Moss animals
+|Moss animals, sea mats, ectoprocts<ref name="K&D" />{{rp|332}}
+|Lophophore, no pedicle, [[cilia]]ted [[tentacle]]s, anus outside ring of cilia
+|{{nts|6000}} extant<ref name="Zhang2013"/>
+|- style="background: #ffe0e0"
+|[[Chaetognatha]]
+|Longhair jaw
+|Arrow worms<ref name="K&D" />{{rp|342}}
+|[[Chitin]]ous spines either side of head, fins
+|{{nts|100|prefix=approx.&nbsp;}} extant<!--Please do not change data without providing a reliable source-->
+|- style="background: #f8de7e"
+|[[Chordata]]
+|With a cord
+|Chordates
+|Hollow [[dorsal nerve cord]], [[notochord]], [[pharyngeal slit]]s, [[endostyle]], post-[[anus|anal]] [[tail]]
+|{{nts|55000|prefix=approx.&nbsp;}}+<ref name="Zhang2013"/>
+|- style="background: #bebebe"
+|[[Cnidaria]]
+|Stinging nettle
+| Cnidarians
+|[[Nematocysts]] (stinging cells)
+|{{nts|16000|prefix=approx.&nbsp;}}<ref name="Zhang2013"/>
+|- style="background: #bebebe"
+|[[Ctenophora]]
+|Comb bearer
+|Comb jellies<ref name="K&D" />{{rp|256}}
+|Eight "comb rows" of fused cilia
+|{{nts|100|prefix=approx.&nbsp;}}-150 extant<!--Please do not change data without providing a reliable source-->
+|- style="background: #ffe0e0"
+|[[Cycliophora]]
+|Wheel carrying
+|''Symbion''
+|Circular mouth surrounded by small cilia, sac-like bodies
+|{{nts|3}}+
+|- style="background: #f8de7e"
+|[[Echinodermata]]
+|Spiny skin
+|Echinoderms<ref name="K&D" />{{rp|348}}
+|Fivefold radial [[symmetry]] in living forms, [[germ layer#Mesoderm|mesodermal]] calcified spines
+|{{nts|7500|prefix=approx.&nbsp;}} extant;<ref name="Zhang2013"/> approx. 13,000 extinct
+|- style="background: #ffe0e0"
+|[[Entoprocta]]
+|Inside [[anus]]<ref name="K&D" />{{rp|292}}
+|Goblet worms
+|Anus inside ring of cilia
+|{{nts|150|prefix=approx.&nbsp;}}
+|- style="background: #ffe0e0"
+|[[Gastrotricha]]
+|Hairy stomach<ref name="K&D" />{{rp|288}}
+| Gastrotrich worms
+|Two terminal adhesive tubes
+|{{nts|690|prefix=approx.&nbsp;}}
+|- style="background: #ffe0e0"
+|[[Gnathostomulida]]
+|Jaw orifice
+|Jaw worms<ref name="K&D" />{{rp|260}}
+|Tiny worms related to rotifers with no body cavity
+|{{nts|100|prefix=approx.&nbsp;}}
+|- style="background: #f8de7e"
+|[[Hemichordata]]
+|Half cord<ref name="K&D" />{{rp|344}}
+|Acorn worms, hemichordates
+|[[Stomochord]] in collar, [[pharyngeal slit]]s
+|{{nts|130|prefix=approx.&nbsp;}} extant
+|- style="background: #ffe0e0"
+|[[Kinorhyncha]]
+|Motion snout
+|Mud dragons
+|Eleven segments, each with a dorsal plate
+|{{nts|150|prefix=approx.&nbsp;}}
+|- style="background: #ffe0e0"
+|[[Loricifera]]
+|Corset bearer
+|Brush heads
+|Umbrella-like scales at each end
+|{{nts|122|prefix=approx.&nbsp;}}
+|- style="background: #ffe0e0"
+|[[Limnognathia|Micrognathozoa]]
+|Tiny jaw animals
+| ''Limnognathia''
+|[[Accordion]]-like extensible [[thorax]]
+|{{nts|1}}
+|- style="background: #ffe0e0"
+|[[Mollusca]]
+|Soft<ref name="K&D" />{{rp|320}}
+|Mollusks / molluscs
+|Muscular foot and [[Mantle (mollusc)|mantle]] round shell
+|{{nts|85000}}+ extant;<ref name="Zhang2013"/> 80,000+ extinct<ref>Feldkamp, S. (2002) ''Modern Biology''. Holt, Rinehart, and Winston, USA. (pp. 725)</ref>
+|- style="background: #ffe0e0"
+|[[Nematoda]]
+|Thread like
+|Round worms, thread worms<ref name="K&D" />{{rp|274}}
+|Round cross section, [[keratin]] [[cuticle]]
+|{{nts|25000}}<ref name="Zhang2013"/>
+|- style="background: #ffe0e0"
+|[[Nematomorpha]]
+|Thread form<ref name="K&D" />{{rp|276}}
+| Horsehair worms, gordian worms<ref name="K&D" />{{rp|276}}
+|Long, thin parasitic worms closely related to nematodes
+|{{nts|320|prefix=approx.&nbsp;}}
+|- style="background: #ffe0e0"
+|[[Nemertea]]
+|A sea nymph<ref name="K&D" />{{rp|270}}
+|Ribbon worms, rhynchocoela<ref name="K&D" />{{rp|270}}
+|Unsegmented worms, with a proboscis housed in a cavity derived from the coelom called the rhynchocoel
+|{{nts|1200|prefix=approx.&nbsp;}}
+|- style="background: #ffe0e0"
+|[[Onychophora]]
+|Claw bearer
+|Velvet worms<ref name="K&D" />{{rp|328}}
+|Worm-like animal with legs tipped by chitinous claws
+|{{nts|200|prefix=approx.&nbsp;}} extant
+|- style="background: #f8be9a"
+|[[Petalonamae]]
+|Shaped like leaves 
+|No
+|An extinct phylum from the Ediacaran. They are bottom-dwelling and immobile, shaped like leaves (frondomorphs), feathers or spindles.
+|3 classes, extinct
+|- style="background: #ffe0e0"
+|[[Phoronid]]a
+|Zeus's mistress
+|Horseshoe worms
+|U-shaped gut
+|{{nts|11}}
+|- style="background: #a6ba9e"
+|[[Placozoa]]
+|Plate animals
+|Trichoplaxes<ref name="K&D" />{{rp|242}}
+|Differentiated top and bottom surfaces, two ciliated cell layers, amoeboid fiber cells in between
+|{{nts|3}}
+|- style="background: #ffe0e0"
+|[[Platyhelminthes]]
+|Flat worm<ref name="K&D" />{{rp|262}}
+|Flatworms<ref name="K&D" />{{rp|262}}
+|Flattened worms with no body cavity. Many are parasitic.
+|{{nts|29500|prefix=approx.&nbsp;}}<ref name="Zhang2013"/>
+|- style="background: #a6ba9e"
+|[[Porifera]]
+|Pore bearer
+|Sponges<ref name="K&D" />{{rp|246}}
+|Perforated interior wall, simplest of all known animals
+|{{nts|10800}} extant<ref name="Zhang2013"/>
+|- style="background: #ffe0e0"
+|[[Priapulida]]
+|Little [[Priapus]]
+|Penis worms
+|Penis-shaped worms
+| {{nts|20|prefix=approx.&nbsp;}}
+|- style="background: #f8be9a"
+|[[Proarticulata]]
+|Before articulates
+|Proarticulates
+|An extinct group of mattress-like organisms that display "glide symmetry." Found during the Ediacaran.
+|3 classes, extinct
+|- style="background: #ffe0e0"
+|[[Rhombozoa]] ([[Dicyemida]])
+|Lozenge animal
+| Rhombozoans<ref name="K&D" />{{rp|264}}
+|Single [[Anatomical terms of location|anteroposterior]] [[Axis of rotation|axial]] [[cell (biology)|celled]] endoparasites, surrounded by ciliated cells
+|{{nts|100}}+
+|- style="background: #ffe0e0"
+|[[Rotifera]]
+|Wheel bearer
+|Rotifers<ref name="K&D" />{{rp|282}}
+|Anterior crown of cilia
+|{{nts|2000|prefix=approx.&nbsp;}}<ref name="Zhang2013"/>
+|-style="background: #a0b0d0"
+|[[Saccorhytida]]
+|Saccus : "pocket" and "wrinkle"
+|''Saccorhytus''
+|''Saccorhytus'' is only about 1&nbsp;mm (1.3&nbsp;mm) in size and is characterized by a spherical or hemispherical body with a prominent mouth.  Its body is covered by a thick but flexible cuticle.  It has a nodule above its mouth. Around its body are 8 openings in a truncated cone with radial folds. Considered to be a deuterostome<ref>{{Cite journal |last1=Han |first1=Jian |last2=Morris |first2=Simon Conway |last3=Ou |first3=Qiang |last4=Shu |first4=Degan |last5=Huang |first5=Hai |date=2017 |title=Meiofaunal deuterostomes from the basal Cambrian of Shaanxi (China) |url=https://www.nature.com/articles/nature21072 |journal=Nature |language=en |volume=542 |issue=7640 |pages=228–231 |doi=10.1038/nature21072 |pmid=28135722 |bibcode=2017Natur.542..228H |s2cid=353780 |issn=1476-4687}}</ref> or an early [[Ecdysozoa|ecdysozoan]].<ref>{{Cite journal |last1=Liu |first1=Yunhuan |last2=Carlisle |first2=Emily |last3=Zhang |first3=Huaqiao |last4=Yang |first4=Ben |last5=Steiner |first5=Michael |last6=Shao |first6=Tiequan |last7=Duan |first7=Baichuan |last8=Marone |first8=Federica |last9=Xiao |first9=Shuhai |last10=Donoghue |first10=Philip C. J. |date=2022-08-17 |title=Saccorhytus is an early ecdysozoan and not the earliest deuterostome |url=https://www.nature.com/articles/s41586-022-05107-z |journal=Nature |volume=609 |issue=7927 |language=en |pages=541–546 |doi=10.1038/s41586-022-05107-z |pmid=35978194 |bibcode=2022Natur.609..541L |s2cid=251646316 |issn=1476-4687}}</ref>
+|1 species, extinct
+|- style="background: #ffe0e0"
+|[[Tardigrada]]
+|Slow step
+|Water bears, Moss piglets 
+|Microscopic relatives of the arthropods, with a four segmented body and head
+|{{nts|1000}}
+|- style="background: #f8be9a"
+|[[Trilobozoa]]
+|Three-lobed animal
+|Trilobozoan
+|A taxon of mostly discoidal organisms exhibiting tricentric symmetry.  All are Ediacaran-aged
+|18 genera, extinct
+|-style="background: #f8de7e"
+|[[Vetulicolia]]
+|Ancient dweller 
+|Vetulicolian
+|Might possibly be a subphylum of the chordates. Their body consists of two parts: a large front part and covered with a large "mouth" and a hundred round objects on each side that have been interpreted as gills or openings near the pharynx.  Their posterior pharynx consists of 7 segments. 
+|15 species, extinct
+|- style="background: #a0b0d0"
+|[[Xenacoelomorpha]]
+|Strange hollow form
+|Subphylum Acoelomorpha and xenoturbellida
+|Small, simple animals. [[Bilateria]]n, but lacking typical bilaterian structures such as gut cavities, anuses, and circulatory systems<ref name="Cannon2016">{{cite journal|last1=Cannon |first1=J.T. |last2=Vellutini |first2=B.C. |last3=Smith |first3=J. |last4=Ronquist |first4=F. |last5=Jondelius |first5=U. |last6=Hejnol |first6=A. |title=Xenacoelomorpha is the sister group to Nephrozoa |journal=Nature |volume=530 |issue=7588 |date=4 February 2016 |pages=89–93 |pmid=26842059 |doi=10.1038/nature16520|url=http://urn.kb.se/resolve?urn=urn:nbn:se:nrm:diva-1844 |bibcode=2016Natur.530...89C |s2cid=205247296 }}</ref>
+|{{nts|400}}+
+|-class="sortbottom"
+|'''Total: 40'''
+|
+|
+|
+|'''1,525,000'''<ref name="Zhang2013"/>
+|}
 
-@q @=}@> @>
+=== Plants ===
+{{Main|Plant}}
 
-@q **** STRING (4) @> 
-@q @ STRING @>
-@<Rules@>=
-@q @=string|STRING {@> @>
+The kingdom Plantae is defined in various ways by different biologists (see [[Plant#Current definitions of Plantae|Current definitions of Plantae]]). All definitions include the living [[embryophyte]]s (land plants), to which may be added the two green algae divisions, [[Chlorophyta]] and [[Charophyta]], to form the clade [[Viridiplantae]]. The table below follows the influential (though contentious) [[Cavalier-Smith's system of classification|Cavalier-Smith system]] in equating "Plantae" with [[Archaeplastida]],<ref name="6kingdoms">{{cite journal | last = Cavalier-Smith | first = Thomas | author-link = Thomas Cavalier-Smith | title = Only Six Kingdoms of Life | journal = Proceedings: Biological Sciences | volume = 271 | issue = 1545 | pages = 1251–1262 | date = 22 June 2004 | doi=10.1098/rspb.2004.2705| pmid = 15306349 | pmc = 1691724 }}</ref> a group containing Viridiplantae and the algal [[Rhodophyta]] and [[Glaucophyta]] divisions.
 
-@q    return STRING; @>
+The definition and classification of plants at the division level also varies from source to source, and has changed progressively in recent years. Thus some sources place horsetails in division Arthrophyta and ferns in division Monilophyta,{{sfn|Mauseth|2012|pp=514, 517}} while others place them both in Monilophyta, as shown below. The division Pinophyta may be used for all [[gymnosperm]]s (i.e. including cycads, ginkgos and gnetophytes),<ref name="Cronquist 1966 129–134">{{cite journal | last=Cronquist | first=A. |author2=A. Takhtajan |author3=W. Zimmermann  | date=April 1966 | title=On the higher taxa of Embryobionta | journal=Taxon | issue=4 | pages=129–134 | doi=10.2307/1217531 | volume=15 | jstor=1217531 }}</ref> or for conifers alone as below.
 
-@q @=}@> @>
+Since the first publication of the [[APG system]] in 1998, which proposed a classification of angiosperms up to the level of [[order (biology)|order]]s, many sources have preferred to treat ranks higher than orders as informal clades. Where formal ranks have been provided, the traditional divisions listed below have been reduced to a very much lower level, e.g. [[subclass (biology)|subclass]]es.<ref>{{Citation |last1=Chase |first1=Mark W. |last2=Reveal |first2=James L. |date=October 2009 |title=A phylogenetic classification of the land plants to accompany APG III |journal=Botanical Journal of the Linnean Society |volume=161 |issue=2 |pages=122–127 |doi=10.1111/j.1095-8339.2009.01002.x |name-list-style=amp |doi-access=free }}</ref>
