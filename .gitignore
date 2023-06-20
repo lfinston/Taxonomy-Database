@@ -25,12 +25,16 @@
 \#*\#
 *~
 *.o
+*.cxx
 *.dvi
 *.eps
 *.jpg
 *.log
 *.pdf
 *.png
+m4
+ltmain.sh
+sub_taxonomy.tex
 texput*
 taxonomy
 taxonomy.cxx
