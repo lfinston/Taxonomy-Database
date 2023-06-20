@@ -1,3 +1,66 @@
 %% taxonomy.tex
 %% Created by Laurence D. Finston (LDF) Di 20. Jun 09:45:40 CEST 2023
 
+%%%% * (1) Copyright and License.
+
+%%%% This file is part of Taxonomy-Database, a package for taxonomy.
+%%%% Copyright (C) 2021 Laurence D. Finston
+
+%%%% Taxonomy-Database is free software; you can redistribute it and/or modify
+%%%% it under the terms of the GNU General Public License as published by
+%%%% the Free Software Foundation; either version 3 of the License, or
+%%%% (at your option) any later version.
+
+%%%% Taxonomy-Database is distributed in the hope that it will be useful,
+%%%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%%%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%%%% GNU General Public License for more details.
+
+%%%% You should have received a copy of the GNU General Public License
+%%%% along with Taxonomy-Database; if not, write to the Free Software
+%%%% Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+%%%% Please send bug reports to Laurence.Finston@gmx.de
+
+%%%% The author can be contacted at:
+
+%%%% Laurence.Finston@gmx.de
+
+\input eplain
+\input epsf
+\input colordvi
+
+\special{papersize=210mm, 297mm}
+\hsize=210mm
+\vsize=297mm
+
+\parindent=0pt
+
+\advance\voffset by -1in
+\advance\hoffset by -1in
+
+\advance\voffset by 1.5cm
+\advance\hoffset by 1cm
+
+\advance\hsize by -2cm
+\advance\vsize by -3cm
+
+\def\epsfsize#1#2{#1}
+
+\font\bf=cmbx10
+\font\largebf=cmbx12 scaled \magstep1
+\footline={\hss\folio\hss}
+
+\newtoks\datestamptoks
+
+\vbox{}
+\vskip.5cm
+\centerline{{\largebf Taxonomy-Database Output}}
+
+
+
+
+
+\input sub_taxonomy.tex
+
+\bye
