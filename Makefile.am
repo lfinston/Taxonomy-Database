@@ -54,7 +54,6 @@ prog: taxonomy($EXEEXT)
 
 run: taxonomy.pdf
 
-
 runc: 
 	$(MAKE) run
 	cat sub_taxonomy.tex
@@ -71,11 +70,17 @@ taxonomy.cxx: taxonomy.web
 
 .PHONY: dvi ps pdf
 
+dvi: taxonomy.dvi
+
+pdf: taxonomy.pdf
+
+ps: taxonomy.ps
+
 sub_taxonomy.tex: taxonomy($EXEEXT)
 	./taxonomy$(EXEEXT)
 
 taxonomy.dvi: taxonomy.tex sub_taxonomy.tex
-	$(TEX) $<
+	$(TEX) $< && $(TEX) $<
 
 taxonomy.pdf: taxonomy.dvi
 	dvipdfmx $<
