@@ -27,6 +27,15 @@
 #### Laurence.Finston@gmx.de
 
 
+#### Automatic Variables.  For more, see Section 10.5.3, "Automatic Variables"
+#### of the Make info manual.
+#### LDF 2009.12.29.
+
+#### $@:  Target
+#### $<:  First prerequisite
+#### $^:  The names of all the prerequisites, with spaces between them.
+#### $*:  The stem with which an implicit rule matches
+
 ACLOCAL_AMFLAGS = -I m4
 
 SOURCEDIR := src
@@ -52,21 +61,28 @@ cxx: taxonomy.cxx
 
 prog: taxonomy($EXEEXT)
 
-run: taxonomy.pdf
+run: sub_taxonomy.tex
 
 runc: 
 	$(MAKE) run
 	cat sub_taxonomy.tex
 
-taxonomy($EXEEXT): taxonomy.o
-	g++ -o $@ $< -L/usr/lib/mysql -lmysqlclient -lm 
+taxonomy($EXEEXT): taxonomy.o datatypes.o
+	g++ -o $@ $^ -L/usr/lib/mysql -lmysqlclient -lm 
            
 taxonomy.o: taxonomy.cxx
+	g++ -c -g -DHAVE_CONFIG_H -I/usr/include/mysql -o $@ $<
+
+datatypes.o: datatypes.cxx
 	g++ -c -g -DHAVE_CONFIG_H -I/usr/include/mysql -o $@ $<
 
 taxonomy.cxx: taxonomy.web
 	ctangle $<
 	mv taxonomy.c $@
+
+datatypes.cxx: datatypes.web
+	ctangle $<
+	mv datatypes.c $@
 
 .PHONY: dvi ps pdf
 
