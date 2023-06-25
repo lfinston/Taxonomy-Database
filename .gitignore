@@ -32,6 +32,7 @@
 *.log
 *.pdf
 *.png
+*.toc
 m4
 ltmain.sh
 sub_taxonomy.tex
