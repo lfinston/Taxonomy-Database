@@ -64,11 +64,78 @@
 /* #include <stack>   */
 /* #include <set>     */
 
+@q * (1) class Phylum declaration.  @>
+
+@ |class Phylum| declaration.  
+\initials{LDF 2023.06.25.}
+
+\LOG
+\initials{LDF 2023.06.25.}
+Added this section.
+\ENDLOG
+
+@<|class Phylum| declaration@>=
+
+class Phylum
+{
+   unsigned int id;
+   unsigned int kingdom_id;
+
+   @<|Phylum| function declarations@>@;
+
+};
+
+@q ** (2) @>
+@
+@<|Phylum| function declarations@>=
+
+@
+@<|Phylum| function definitions@>=
+
+
+@q * (1) class Classis declaration.  @>
+
+@ |class Classis| declaration.  
+\initials{LDF 2023.06.25.}
+
+\LOG
+\initials{LDF 2023.06.25.}
+Added this section.
+\ENDLOG
+
+@<|class Classis| declaration@>=
+
+class Classis
+{
+   unsigned int id;
+   unsigned int phylum_id;
+   
+   @<|Classis| function declarations@>@;
+
+};
+
+@q ** (2) @>
+@
+@<|Classis| function declarations@>=
+
+@
+@<|Classis| function definitions@>=
+
 @q * (1) @>
 @
 @c
 @<Include files@>@;
 using namespace std;
+@<|class Classis| declaration@>@;
+@<|Classis| function definitions@>@;@/
+@<|Phylum| function definitions@>@;@/
+
+@q ** (2) Write to header file.  @>
+@
+@(datatypes.h@>=
+@<|class Phylum| declaration@>@;@/
+@<|class Classis| declaration@>@;@/
+
 
 @q * (1) Emacs-Lisp code for use in indirect buffers when using the          @>
 @q       GNU Emacs editor.  The local variable list is not evaluated when an @>

@@ -70,7 +70,7 @@ runc:
 taxonomy($EXEEXT): taxonomy.o datatypes.o
 	g++ -o $@ $^ -L/usr/lib/mysql -lmysqlclient -lm 
            
-taxonomy.o: taxonomy.cxx
+taxonomy.o: taxonomy.cxx datatypes.h
 	g++ -c -g -DHAVE_CONFIG_H -I/usr/include/mysql -o $@ $<
 
 datatypes.o: datatypes.cxx
@@ -80,7 +80,7 @@ taxonomy.cxx: taxonomy.web
 	ctangle $<
 	mv taxonomy.c $@
 
-datatypes.cxx: datatypes.web
+datatypes.cxx datatypes.h: datatypes.web
 	ctangle $<
 	mv datatypes.c $@
 

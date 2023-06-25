@@ -74,6 +74,23 @@ values
 
 select * from Phyla order by id;
 
+select id,
+kingdom_id,
+name,
+name_english, 
+name_latin,
+name_german,
+name_singular,
+name_english_singular,
+name_latin_singular,
+name_german_singular,
+name_plural,
+name_english_plural,
+name_latin_plural,
+name_german_plural
+from 
+Phyla where id > 0;
+
 /* *** (3)  */
 
 /* ** (2) table Classes */
@@ -109,6 +126,7 @@ values
 (1, 1, "Mammalia", "mammalia", "mammals", "mammal", "mammals", "mammalia");
 
 select * from Classes order by id;
+
 
 /* ** (2)  */
 
