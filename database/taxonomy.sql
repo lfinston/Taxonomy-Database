@@ -30,29 +30,89 @@ alter table Kingdoms add column name varchar(64) not null after id;
 show columns from Kingdoms;
 
 insert into Kingdoms (id, name) values
-(1, "Animalia"),
-(2, "Plantae"),
-(3, "Fungi");
+(0, "dummy"),
+(1, "Plantae"),
+(2, "Fungi"),
+(3, "Animalia");
+
+insert into Kingdoms (id, name) values (0, "dummy");
 
 select * from Kingdoms order by id;
 
 delete from Kingdoms;
 
-drop table Phyla;
+/* ** (2) table Phyla */
 
+drop table Phyla;
 create table Phyla
 (
    id int unique not null,
    kingdom_id int not null,
-   name varchar(64) not null,
-   name_latin varchar(64) not null,
-   name_german varchar(64) not null
-   
+   name varchar(64) not null default "",
+   name_english varchar(64) not null default "",
+   name_latin varchar(64) not null default "",
+   name_german varchar(64) not null default "",
+   name_singular varchar(64) not null default "",
+   name_english_singular varchar(64) not null default "",
+   name_latin_singular varchar(64) not null default "",
+   name_german_singular varchar(64) not null default "",
+   name_plural varchar(64) not null default "",
+   name_english_plural varchar(64) not null default "",
+   name_latin_plural varchar(64) not null default "",
+   name_german_plural varchar(64) not null default ""
 );
+
+insert into Phyla (id, kingdom_id, name) values (0, 0, "dummy");
 
 show columns from Phyla;
 
 
+replace into Phyla (id, kingdom_id, name, name_latin, name_english,
+name_english_singular, name_english_plural, name_latin_plural)
+values
+(1, 3, "Chordata", "chordata", "chordates", "chordate", "chordates", "chordata");
+
+select * from Phyla order by id;
+
+/* *** (3)  */
+
+/* ** (2) table Classes */
+
+drop table Classes;
+
+create table Classes
+(
+   id int unique not null,
+   phylum_id int not null,
+   name varchar(64) not null default "",
+   name_english varchar(64) not null default "",
+   name_latin varchar(64) not null default "",
+   name_german varchar(64) not null default "",
+   name_singular varchar(64) not null default "",
+   name_english_singular varchar(64) not null default "",
+   name_latin_singular varchar(64) not null default "",
+   name_german_singular varchar(64) not null default "",
+   name_plural varchar(64) not null default "",
+   name_english_plural varchar(64) not null default "",
+   name_latin_plural varchar(64) not null default "",
+   name_german_plural varchar(64) not null default ""
+);
+
+insert into Classes (id, phylum_id, name) values (0, 0, "dummy");
+
+show columns from Classes;
+
+
+replace into Classes (id, phylum_id, name, name_latin, name_english,
+name_english_singular, name_english_plural, name_latin_plural)
+values
+(1, 1, "Mammalia", "mammalia", "mammals", "mammal", "mammals", "mammalia");
+
+select * from Classes order by id;
+
+/* ** (2)  */
+
+/* * (1)  */
 
 Choanoflagellata
 Desmarella 
