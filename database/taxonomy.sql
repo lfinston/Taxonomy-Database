@@ -9,13 +9,36 @@ mysql> GRANT ALL ON Taxonomy TO 'lf'@'localhost';
 mysql> create user 'taxonomy'@'localhost';
 mysql> 
 
+
+
 GRANT ALL ON Taxonomy TO 'taxonomy'@'localhost';
+
+/* * (1) */
 
 https://en.wikipedia.org/wiki/Taxonomic_rank
 
 Phylum, phyla 
 https://en.wikipedia.org/wiki/Phylum
 
+Chimonanthus praecox
+Chinesische Winterblüte
+
+wintersweet and Japanese allspice
+
+Winter flowers on leafless stems
+Scientific classification Edit this classification
+Kingdom: 	Plantae
+Clade: 	Tracheophytes
+Clade: 	Angiosperms
+Clade: 	Magnoliids
+Order: 	Laurales
+Family: 	Calycanthaceae
+Genus: 	Chimonanthus
+Species: 	C. praecox
+https://en.wikipedia.org/wiki/Chimonanthus_praecox
+https://de.wikipedia.org/wiki/Chimonanthus_praecox
+
+/* * (1) */
 
 drop table Kingdoms;
 
